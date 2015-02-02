@@ -1,0 +1,441 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3775FE0E1A6C8E04001F807E /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3775FE0D1A6C8E04001F807E /* IconView.swift */; };
+		3775FE171A6C8F97001F807E /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3775FE161A6C8F97001F807E /* icon@2x.png */; };
+		3775FE191A6C8FE3001F807E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3775FE181A6C8FE3001F807E /* MainMenu.xib */; };
+		3775FE1C1A6CA419001F807E /* canBecomeKeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3775FE1B1A6CA419001F807E /* canBecomeKeyWindow.m */; };
+		3775FE1F1A6CA7E4001F807E /* twodo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3775FE1D1A6CA7E4001F807E /* twodo.xcdatamodeld */; };
+		37FCD1641A69F0F900A6FDB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FCD1631A69F0F900A6FDB2 /* AppDelegate.swift */; };
+		37FCD1661A69F0F900A6FDB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37FCD1651A69F0F900A6FDB2 /* Images.xcassets */; };
+		37FCD1751A69F0F900A6FDB2 /* twodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FCD1741A69F0F900A6FDB2 /* twodoTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		37FCD16F1A69F0F900A6FDB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37FCD1561A69F0F900A6FDB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37FCD15D1A69F0F900A6FDB2;
+			remoteInfo = twodo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3775FE0D1A6C8E04001F807E /* IconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
+		3775FE161A6C8F97001F807E /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		3775FE181A6C8FE3001F807E /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		3775FE1A1A6CA3FC001F807E /* canBecomeKeyWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = canBecomeKeyWindow.h; sourceTree = "<group>"; };
+		3775FE1B1A6CA419001F807E /* canBecomeKeyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = canBecomeKeyWindow.m; sourceTree = "<group>"; };
+		3775FE1E1A6CA7E4001F807E /* twodo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = twodo.xcdatamodel; sourceTree = "<group>"; };
+		37FCD15E1A69F0F900A6FDB2 /* twodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		37FCD1621A69F0F900A6FDB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37FCD1631A69F0F900A6FDB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		37FCD1651A69F0F900A6FDB2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		37FCD16E1A69F0F900A6FDB2 /* twodoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = twodoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		37FCD1731A69F0F900A6FDB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37FCD1741A69F0F900A6FDB2 /* twodoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = twodoTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		37FCD15B1A69F0F900A6FDB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37FCD16B1A69F0F900A6FDB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3775FE111A6C8F5F001F807E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3775FE161A6C8F97001F807E /* icon@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		37FCD1551A69F0F900A6FDB2 = {
+			isa = PBXGroup;
+			children = (
+				37FCD1601A69F0F900A6FDB2 /* twodo */,
+				37FCD1711A69F0F900A6FDB2 /* twodoTests */,
+				37FCD15F1A69F0F900A6FDB2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		37FCD15F1A69F0F900A6FDB2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37FCD15E1A69F0F900A6FDB2 /* twodo.app */,
+				37FCD16E1A69F0F900A6FDB2 /* twodoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		37FCD1601A69F0F900A6FDB2 /* twodo */ = {
+			isa = PBXGroup;
+			children = (
+				3775FE111A6C8F5F001F807E /* Resources */,
+				37FCD1631A69F0F900A6FDB2 /* AppDelegate.swift */,
+				37FCD1651A69F0F900A6FDB2 /* Images.xcassets */,
+				3775FE181A6C8FE3001F807E /* MainMenu.xib */,
+				37FCD1611A69F0F900A6FDB2 /* Supporting Files */,
+				3775FE0D1A6C8E04001F807E /* IconView.swift */,
+				3775FE1A1A6CA3FC001F807E /* canBecomeKeyWindow.h */,
+				3775FE1B1A6CA419001F807E /* canBecomeKeyWindow.m */,
+				3775FE1D1A6CA7E4001F807E /* twodo.xcdatamodeld */,
+			);
+			path = twodo;
+			sourceTree = "<group>";
+		};
+		37FCD1611A69F0F900A6FDB2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				37FCD1621A69F0F900A6FDB2 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		37FCD1711A69F0F900A6FDB2 /* twodoTests */ = {
+			isa = PBXGroup;
+			children = (
+				37FCD1741A69F0F900A6FDB2 /* twodoTests.swift */,
+				37FCD1721A69F0F900A6FDB2 /* Supporting Files */,
+			);
+			path = twodoTests;
+			sourceTree = "<group>";
+		};
+		37FCD1721A69F0F900A6FDB2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				37FCD1731A69F0F900A6FDB2 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		37FCD15D1A69F0F900A6FDB2 /* twodo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37FCD1781A69F0F900A6FDB2 /* Build configuration list for PBXNativeTarget "twodo" */;
+			buildPhases = (
+				37FCD15A1A69F0F900A6FDB2 /* Sources */,
+				37FCD15B1A69F0F900A6FDB2 /* Frameworks */,
+				37FCD15C1A69F0F900A6FDB2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = twodo;
+			productName = twodo;
+			productReference = 37FCD15E1A69F0F900A6FDB2 /* twodo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		37FCD16D1A69F0F900A6FDB2 /* twodoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37FCD17B1A69F0F900A6FDB2 /* Build configuration list for PBXNativeTarget "twodoTests" */;
+			buildPhases = (
+				37FCD16A1A69F0F900A6FDB2 /* Sources */,
+				37FCD16B1A69F0F900A6FDB2 /* Frameworks */,
+				37FCD16C1A69F0F900A6FDB2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37FCD1701A69F0F900A6FDB2 /* PBXTargetDependency */,
+			);
+			name = twodoTests;
+			productName = twodoTests;
+			productReference = 37FCD16E1A69F0F900A6FDB2 /* twodoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		37FCD1561A69F0F900A6FDB2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = danlennoxconsulting;
+				TargetAttributes = {
+					37FCD15D1A69F0F900A6FDB2 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					37FCD16D1A69F0F900A6FDB2 = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = 37FCD15D1A69F0F900A6FDB2;
+					};
+				};
+			};
+			buildConfigurationList = 37FCD1591A69F0F900A6FDB2 /* Build configuration list for PBXProject "twodo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 37FCD1551A69F0F900A6FDB2;
+			productRefGroup = 37FCD15F1A69F0F900A6FDB2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				37FCD15D1A69F0F900A6FDB2 /* twodo */,
+				37FCD16D1A69F0F900A6FDB2 /* twodoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		37FCD15C1A69F0F900A6FDB2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37FCD1661A69F0F900A6FDB2 /* Images.xcassets in Resources */,
+				3775FE171A6C8F97001F807E /* icon@2x.png in Resources */,
+				3775FE191A6C8FE3001F807E /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37FCD16C1A69F0F900A6FDB2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		37FCD15A1A69F0F900A6FDB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37FCD1641A69F0F900A6FDB2 /* AppDelegate.swift in Sources */,
+				3775FE1C1A6CA419001F807E /* canBecomeKeyWindow.m in Sources */,
+				3775FE0E1A6C8E04001F807E /* IconView.swift in Sources */,
+				3775FE1F1A6CA7E4001F807E /* twodo.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37FCD16A1A69F0F900A6FDB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37FCD1751A69F0F900A6FDB2 /* twodoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		37FCD1701A69F0F900A6FDB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37FCD15D1A69F0F900A6FDB2 /* twodo */;
+			targetProxy = 37FCD16F1A69F0F900A6FDB2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		37FCD1761A69F0F900A6FDB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		37FCD1771A69F0F900A6FDB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		37FCD1791A69F0F900A6FDB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = twodo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		37FCD17A1A69F0F900A6FDB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = twodo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		37FCD17C1A69F0F900A6FDB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = twodoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/twodo.app/Contents/MacOS/twodo";
+			};
+			name = Debug;
+		};
+		37FCD17D1A69F0F900A6FDB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = twodoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/twodo.app/Contents/MacOS/twodo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		37FCD1591A69F0F900A6FDB2 /* Build configuration list for PBXProject "twodo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37FCD1761A69F0F900A6FDB2 /* Debug */,
+				37FCD1771A69F0F900A6FDB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37FCD1781A69F0F900A6FDB2 /* Build configuration list for PBXNativeTarget "twodo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37FCD1791A69F0F900A6FDB2 /* Debug */,
+				37FCD17A1A69F0F900A6FDB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37FCD17B1A69F0F900A6FDB2 /* Build configuration list for PBXNativeTarget "twodoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37FCD17C1A69F0F900A6FDB2 /* Debug */,
+				37FCD17D1A69F0F900A6FDB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3775FE1D1A6CA7E4001F807E /* twodo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3775FE1E1A6CA7E4001F807E /* twodo.xcdatamodel */,
+			);
+			currentVersion = 3775FE1E1A6CA7E4001F807E /* twodo.xcdatamodel */;
+			path = twodo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 37FCD1561A69F0F900A6FDB2 /* Project object */;
+}
