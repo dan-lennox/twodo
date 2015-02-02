@@ -24,12 +24,15 @@ class AppDelegate: NSObject, NSApplicationDelegate
     @IBOutlet weak var item2Text: NSTextField!
     @IBOutlet weak var save: NSButton!
 
+    
     @IBOutlet weak var currentStreak: NSTextField!
     @IBOutlet weak var longestStreak: NSTextField!
     
     var listItem1: NSManagedObject!
     var listItem2: NSManagedObject!
     var streakRecorder: NSManagedObject!
+    
+    @IBOutlet weak var heading: NSTextField!
     
     func saveData() {
         let managedContext = self.managedObjectContext!
@@ -50,6 +53,20 @@ class AppDelegate: NSObject, NSApplicationDelegate
         }
     }
     
+    @IBAction func textChecked(sender: NSButton) {
+        var color = NSColor.blackColor()
+        
+        if sender.state == 1 {
+            color = NSColor.grayColor()
+        }
+        if sender.identifier == "item1" {
+            self.item1Text.textColor = color
+        }
+        else {
+            self.item2Text.textColor = color
+        }
+    }
+    
     //var needsSave = false
     
     override init()
@@ -67,6 +84,8 @@ class AppDelegate: NSObject, NSApplicationDelegate
     func applicationDidFinishLaunching(aNotification: NSNotification?)
     {
         // Insert code here to initialize your application
+        
+        
         self.loadListItems()
         self.loadStreakRecorder()
         self.updateStreak()

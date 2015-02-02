@@ -2,8 +2,6 @@
 //  IconView.swift
 //  twodo
 //
-//  Created by Daniel Lennox on 19/01/2015.
-//  Copyright (c) 2015 danlennoxconsulting. All rights reserved.
 //
 
 import Foundation
@@ -58,8 +56,10 @@ class IconView : NSView
     
     override func mouseDown(theEvent: NSEvent)
     {
+        println("Called mouse down")
         self.isSelected = !self.isSelected;
         self.onMouseDown();
+
     }
     
     override func mouseUp(theEvent: NSEvent)
