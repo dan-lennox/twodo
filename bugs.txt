@@ -1,0 +1,17 @@
+TODO:
+
+- General visual cleanup
+- Clicking both items increments the current and longest streak on the spot, not next day
+- Unclicking one of the items (after above) then will decrease the current and longest streak on the spot.
+- Visual feedback for - new record, finishing your daily tasks
+- Bar graphic - 1 segment = 1 day
+- Write app description / sales pitch.
+- TESTING (write actual swift unit tests for fun?)
+- Submit to app store.
+
+BUGS:
+
+- reopen the app, anything that was checked already doesn't have grey text anymore.
+- The clicking issue with the icon
+
+
