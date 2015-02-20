@@ -34,251 +34,297 @@ class AppDelegate: NSObject, NSApplicationDelegate
     
     @IBOutlet weak var heading: NSTextField!
     
-    func saveData() {
-        let managedContext = self.managedObjectContext!
-//        let fetchRequest = NSFetchRequest(entityName:"ListItem")
-//     
-        var error: NSError?
+    enum State {
+      case recordAlmostMatched
+      case RecordMatched
+      case RecordBeaten
+      case NewDay
+      case NewDay5Plus
+      case OneTicked
+      case TwoTicked
+    }
+  
+  var listState: State
 
-        self.listItem1.setValue(self.item1Text.stringValue, forKey: "text")
-        self.listItem1.setValue(self.item1State.state, forKey: "state")
-        
-        self.listItem2.setValue(self.item2Text.stringValue, forKey: "text")
-        self.listItem2.setValue(self.item2State.state, forKey: "state")
-        
-        self.streakRecorder.setValue(NSDate(), forKey: "last_use");
-        
-        if !managedContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
-        }
-    }
-    
-    @IBAction func textChecked(sender: NSButton) {
-        var color = NSColor.blackColor()
-        
-        if sender.state == 1 {
-            color = NSColor.grayColor()
-        }
-        if sender.identifier == "item1" {
-            self.item1Text.textColor = color
-        }
-        else {
-            self.item2Text.textColor = color
-        }
-    }
-    
-    //var needsSave = false
-    
-    override init()
-    {
-        let bar = NSStatusBar.systemStatusBar();
-        
-        let item = bar.statusItemWithLength(-1);
-        
-        self.icon = IconView(imageName: "icon", item: item);
-        item.view = icon;
-        
-        super.init();
-    }
-    
-    func applicationDidFinishLaunching(aNotification: NSNotification?)
-    {
-        // Insert code here to initialize your application
-        
-        
-        self.loadListItems()
-        self.loadStreakRecorder()
-        self.updateStreak()
-        self.updateUI()
-    }
-    
-    func applicationDidBecomeActive(notification: NSNotification) {
-        //self.updateUI()
-    }
-    
-    func applicationDidResignActive(notification: NSNotification) {
-        // Save our data when the user clicks out of the app.
-        //self.updateStreak()
-        self.saveData()
-    }
-    
-    func updateStreak() {
-        let calendar = NSCalendar.currentCalendar()
-        
-        // Debug streaks:
-        //let today:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: NSDate(), options: nil)
-        let today = NSDate()
-        
-        let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today)
-        let last_use = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: self.streakRecorder.valueForKey("last_use") as NSDate)
+  func saveData() {
+    let managedContext = self.managedObjectContext!
+    var error: NSError?
 
-        // If both the day and the month are different, it's a new day.
-        if (!(current_date.day == last_use.day && current_date.month == current_date.month)) {
-            // if item1 and item2 are both ticked.
-            println("Checkbox status")
-            println(self.listItem1.valueForKey("state") as Int)
-            println(self.listItem2.valueForKey("state") as Int)
-            
-            if (self.listItem1.valueForKey("state") as Int == 1 && self.listItem2.valueForKey("state") as Int == 1) {
-                // Increment streak
-                println("increment streak")
-                let new_streak = self.streakRecorder.valueForKey("current") as Int + 1
-                self.streakRecorder.setValue(new_streak, forKey: "current")
-                // Check if we've beaten our longest ever streak.
-                if new_streak > self.streakRecorder.valueForKey("longest") as Int {
-                    self.streakRecorder.setValue(new_streak, forKey: "longest")
-                }
-            }
-            else {
-                // The streak is broken.
-                self.streakRecorder.setValue(0, forKey: "current")
-                println("reset streak")
-            }
-            
-            // If it's a new day, streak or no streak, we clear the lists.
-            self.clearLists()
-            self.saveData()
-        }
-        
-        
-        println("called update streak")
+    self.listItem1.setValue(self.item1Text.stringValue, forKey: "text")
+    self.listItem1.setValue(self.item1State.state, forKey: "state")
+    
+    self.listItem2.setValue(self.item2Text.stringValue, forKey: "text")
+    self.listItem2.setValue(self.item2State.state, forKey: "state")
+    
+    self.streakRecorder.setValue(NSDate(), forKey: "last_use");
+    
+    if !managedContext.save(&error) {
+        println("Could not save \(error), \(error?.userInfo)")
     }
+  }
+  
+  @IBAction func textChecked(sender: NSButton) {
+    var color = NSColor.blackColor()
     
-    func clearLists() {
-        self.listItem1.setValue("", forKey: "text")
-        self.listItem1.setValue(0, forKey: "state")
-        self.listItem2.setValue("", forKey: "text")
-        self.listItem2.setValue(0, forKey: "state")
+    if sender.state == 1 {
+      color = NSColor.grayColor()
+      
     }
-    
-    
-    func loadListItems() {
-        let managedContext = self.managedObjectContext!
-        let fetchRequest = NSFetchRequest(entityName:"ListItem")
-        
-        var error: NSError?
-        
-        let fetchedResults =
-        managedContext.executeFetchRequest(fetchRequest,
-            error: &error) as [NSManagedObject]?
-        
-        if let results = fetchedResults {
-            if results.isEmpty {
-                
-                let entity =  NSEntityDescription.entityForName("ListItem",
-                    inManagedObjectContext:
-                    managedContext)
-                
-                self.listItem1 = NSManagedObject(entity: entity!,
-                    insertIntoManagedObjectContext:managedContext)
-                
-                self.listItem2 = NSManagedObject(entity: entity!,
-                    insertIntoManagedObjectContext:managedContext)
-                
-                self.listItem1.setValue(1, forKey: "index")
-                self.listItem1.setValue("", forKey: "text")
-                self.listItem1.setValue(false, forKey: "state")
-                
-                self.listItem2.setValue(2, forKey: "index")
-                self.listItem2.setValue("", forKey: "text")
-                self.listItem2.setValue(false, forKey: "state")
-                
-                var error: NSError?
-                if !managedContext.save(&error) {
-                    println("Could not save \(error), \(error?.userInfo)")
-                }
-            }
-            else {
-                for result in results {
-                    var index = result.valueForKey("index") as Int
-                    switch index {
-                    case 1:
-                        self.listItem1 = result
-                    case 2:
-                        self.listItem2 = result
-                    default:
-                        println("wrong index")
-                    }
-                }
-            }
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-        }
+    else {
+        // An item has been unchecked.
+        // if the OTHER checkbox is still ticked - not sure how to do this.
+        // Then we know both were ticked previously,
+        // We need to take back the increase to the streak! As the user has 'undone' a task.
+        // - Decrement the current streak and longest (if current > longest).
+      
+        // We can update the streak current and longest UI
+        // but lets only allow actual saving of the streak data if its a new day.
+        // Then we can do this here
+      
+        // if UI current > stored current
+        // AND we've unticked something.
+        // then decrement the current.
+      
     }
+    if sender.identifier == "item1" {
+        self.item1Text.textColor = color
+    }
+    else {
+        self.item2Text.textColor = color
+    }
+    self.saveData()
+    self.updateStreak()
+    self.updateUI()
+  }
+  
+  override init()
+  {
+      let bar = NSStatusBar.systemStatusBar();
+      
+      let item = bar.statusItemWithLength(-1);
     
-    func updateUI() {
-        self.item1Text.stringValue = self.listItem1.valueForKey("text") as String
-        self.item1State.state = self.listItem1.valueForKey("state") as Int
-        
-        self.item2Text.stringValue = self.listItem2.valueForKey("text") as String
-        self.item2State.state = self.listItem2.valueForKey("state") as Int
+      self.listState = State.NewDay
+      
+      self.icon = IconView(imageName: "icon", item: item);
+      item.view = icon;
 
-        self.currentStreak.integerValue = self.streakRecorder.valueForKey("current") as Int
-        self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
+      super.init();
+  }
+  
+
+  
+  func applicationDidFinishLaunching(aNotification: NSNotification?)
+  {
+      // Insert code here to initialize your application
+      self.loadListItems()
+      self.loadStreakRecorder()
+      self.updateStreak()
+      self.setState()
+      self.updateUI()
+  }
+  
+  func setState() {
+    // No inputs (update style function).
+    // Simply looks at the few vars and sets the state based on criteria.
+  }
+    
+  func applicationDidBecomeActive(notification: NSNotification) {
+      //self.updateUI()
+  }
+  
+  func applicationDidResignActive(notification: NSNotification) {
+      // Save our data when the user clicks out of the app.
+      //self.updateStreak()
+      self.saveData()
+  }
+    
+  func updateStreak() {
+    
+    if (self.bothItemsTicked()) {
+      // Increment streak
+      println("increment streak")
+      let new_streak = self.streakRecorder.valueForKey("current") as Int + 1
+      self.streakRecorder.setValue(new_streak, forKey: "current")
+      // Check if we've beaten our longest ever streak.
+      if new_streak > self.streakRecorder.valueForKey("longest") as Int {
+        self.streakRecorder.setValue(new_streak, forKey: "longest")
+      }
+    }
+    else if self.isNewDay() {
+      // The streak is broken and it's a new day, reset the streak.
+      self.streakRecorder.setValue(0, forKey: "current")
+      // If it's a new day, streak or no streak, we clear the lists.
+      self.clearLists()
+      println("reset streak")
     }
     
-    func loadStreakRecorder() {
-        let managedContext = self.managedObjectContext!
+    self.saveData()
+    println("called update streak")
+  }
+  
+  func isNewDay() -> Bool {
+    var newDay = false
+    
+    let calendar = NSCalendar.currentCalendar()
+    
+    // Debug streaks:
+    //let today:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: NSDate(), options: nil)
+    let today = NSDate()
+    
+    let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today)
+    let last_use = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: self.streakRecorder.valueForKey("last_use") as NSDate)
+    
+    // If both the day and the month are different, it's a new day.
+    if (!(current_date.day == last_use.day && current_date.month == current_date.month)) {
+      newDay = true
+    }
+    return newDay
+  }
+  
+  func bothItemsTicked() -> Bool {
+    var ticked = false
+    if (self.listItem1.valueForKey("state") as Int == 1 && self.listItem2.valueForKey("state") as Int == 1) {
+      ticked = true
+    }
+    return ticked
+  }
+  
+    
+  func clearLists() {
+    self.listItem1.setValue("", forKey: "text")
+    self.listItem1.setValue(0, forKey: "state")
+    self.listItem2.setValue("", forKey: "text")
+    self.listItem2.setValue(0, forKey: "state")
+  }
+    
+    
+  func loadListItems() {
+    let managedContext = self.managedObjectContext!
+    let fetchRequest = NSFetchRequest(entityName:"ListItem")
+    
+    var error: NSError?
+    
+    let fetchedResults =
+    managedContext.executeFetchRequest(fetchRequest,
+        error: &error) as [NSManagedObject]?
+    
+    if let results = fetchedResults {
+      if results.isEmpty {
         
-        let entity =  NSEntityDescription.entityForName("StreakRecorder",
+        let entity =  NSEntityDescription.entityForName("ListItem",
             inManagedObjectContext:
             managedContext)
         
-        let fetchRequest = NSFetchRequest(entityName:"StreakRecorder")//returnsObjectsAsFaults:false
+        self.listItem1 = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext:managedContext)
+        
+        self.listItem2 = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext:managedContext)
+        
+        self.listItem1.setValue(1, forKey: "index")
+        self.listItem1.setValue("", forKey: "text")
+        self.listItem1.setValue(false, forKey: "state")
+        
+        self.listItem2.setValue(2, forKey: "index")
+        self.listItem2.setValue("", forKey: "text")
+        self.listItem2.setValue(false, forKey: "state")
         
         var error: NSError?
-        
-        let fetchedResults =
-        managedContext.executeFetchRequest(fetchRequest,
-            error: &error) as [NSManagedObject]?
-        
-        if let results = fetchedResults {
-            if results.isEmpty {
-                // Initialise if empty
-                self.streakRecorder = NSManagedObject(entity: entity!,
-                    insertIntoManagedObjectContext:managedContext)
-                
-                self.streakRecorder.setValue(0, forKey: "current")
-                self.streakRecorder.setValue(0, forKey: "longest")
-                let current_date = NSDate()
-                self.streakRecorder.setValue(current_date, forKey: "last_use");
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+      }
+      else {
+          for result in results {
+              var index = result.valueForKey("index") as Int
+              switch index {
+              case 1:
+                  self.listItem1 = result
+              case 2:
+                  self.listItem2 = result
+              default:
+                  println("wrong index")
+              }
+          }
+      }
+    } else {
+      println("Could not fetch \(error), \(error!.userInfo)")
+    }
+  }
+  
+  func updateUI() {
+    self.item1Text.stringValue = self.listItem1.valueForKey("text") as String
+    self.item1State.state = self.listItem1.valueForKey("state") as Int
+    
+    self.item2Text.stringValue = self.listItem2.valueForKey("text") as String
+    self.item2State.state = self.listItem2.valueForKey("state") as Int
 
-                if !managedContext.save(&error) {
-                    println("Could not save \(error), \(error?.userInfo)")
-                }
-            }
-            else {
-                // Load if not
-                self.streakRecorder = results[0]
-            }
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-        }
-    }
+    self.currentStreak.integerValue = self.streakRecorder.valueForKey("current") as Int
+    self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
+  }
     
-    func applicationWillTerminate(aNotification: NSNotification?)
-    {
-        // Insert code here to tear down your application
-        self.saveData()
-    }
+  func loadStreakRecorder() {
+    let managedContext = self.managedObjectContext!
     
-    override func awakeFromNib()
-    {
-        //NSRectEdge is not enumerated yet; NSMinYEdge == 1
-        //@see NSGeometry.h
-        let edge = 1
-        let icon = self.icon
-        let rect = icon.frame
+    let entity =  NSEntityDescription.entityForName("StreakRecorder",
+        inManagedObjectContext:
+        managedContext)
+    
+    let fetchRequest = NSFetchRequest(entityName:"StreakRecorder")//returnsObjectsAsFaults:false
+    
+    var error: NSError?
+    
+    let fetchedResults =
+    managedContext.executeFetchRequest(fetchRequest,
+        error: &error) as [NSManagedObject]?
+    
+    if let results = fetchedResults {
+      if results.isEmpty {
+        // Initialise if empty
+        self.streakRecorder = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext:managedContext)
         
-        icon.onMouseDown = {
-            if (icon.isSelected)
-            {
-                self.popover.showRelativeToRect(rect, ofView: icon, preferredEdge: edge);
-                return
-            }
-            self.popover.close()
+        self.streakRecorder.setValue(0, forKey: "current")
+        self.streakRecorder.setValue(0, forKey: "longest")
+        let current_date = NSDate()
+        self.streakRecorder.setValue(current_date, forKey: "last_use");
+
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
         }
+      }
+      else {
+        // Load if not
+        self.streakRecorder = results[0]
+      }
+    } else {
+        println("Could not fetch \(error), \(error!.userInfo)")
     }
+  }
+    
+  func applicationWillTerminate(aNotification: NSNotification?)
+  {
+    // Insert code here to tear down your application
+    self.saveData()
+  }
+  
+  override func awakeFromNib()
+  {
+    //NSRectEdge is not enumerated yet; NSMinYEdge == 1
+    //@see NSGeometry.h
+    let edge = 1
+    let icon = self.icon
+    let rect = icon.frame
+    
+    icon.onMouseDown = {
+      if (icon.isSelected)
+      {
+        self.popover.showRelativeToRect(rect, ofView: icon, preferredEdge: edge);
+        return
+      }
+      self.popover.close()
+    }
+  }
     
     
     // MARK: - Core Data stack

@@ -1,7 +1,11 @@
 TODO:
 
-- General visual cleanup
+
+- Remove flash from tick
+- Hand hover on tick
+
 - Clicking both items increments the current and longest streak on the spot, not next day
+
 - Unclicking one of the items (after above) then will decrease the current and longest streak on the spot.
 - Visual feedback for - new record, finishing your daily tasks
 - Bar graphic - 1 segment = 1 day
@@ -13,5 +17,5 @@ BUGS:
 
 - reopen the app, anything that was checked already doesn't have grey text anymore.
 - The clicking issue with the icon
-
-
+- Got to record of 3 days... then I'm not sure but it might not have reset the current streak
+after the end of day 4.
