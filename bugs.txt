@@ -3,15 +3,26 @@ TODO:
 
 - Remove flash from tick
 - Hand hover on tick
+- Vertically center list item text
+- List item green background and strikethrough on tick. 
 
-- Clicking both items increments the current and longest streak on the spot, not next day
 
-- Unclicking one of the items (after above) then will decrease the current and longest streak on the spot.
+- OO Refactor - turn list items and streak recorder into new classes that extend 
+  NSManagedObject
 - Visual feedback for - new record, finishing your daily tasks
-- Bar graphic - 1 segment = 1 day
+- Implement messenger status box
 - Write app description / sales pitch.
 - TESTING (write actual swift unit tests for fun?)
+
+Testing for fresh installs (empty data)
+
 - Submit to app store.
+
+
+Potential future features
+- UI button to reset record?
+- Bar graphic - 1 segment = 1 day
+
 
 BUGS:
 
@@ -19,3 +30,12 @@ BUGS:
 - The clicking issue with the icon
 - Got to record of 3 days... then I'm not sure but it might not have reset the current streak
 after the end of day 4.
+
+
+
+
+
+
+
+
+Need to ensure that the current streak holds when I reopen the app.

@@ -56,7 +56,7 @@ class IconView : NSView
     
     override func mouseDown(theEvent: NSEvent)
     {
-        println("Called mouse down")
+     //   println("Called mouse down")
         self.isSelected = !self.isSelected;
         self.onMouseDown();
 

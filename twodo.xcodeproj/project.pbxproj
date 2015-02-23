@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		373F5FAB1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 373F5FAA1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m */; };
 		3765DDA41A885FA200D532A9 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA31A885FA200D532A9 /* bg.png */; };
 		3765DDA81A88687500D532A9 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA51A88687500D532A9 /* 1.png */; };
 		3765DDA91A88687500D532A9 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA61A88687500D532A9 /* 2.png */; };
@@ -33,6 +34,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		373F5FA91A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSVerticallyCenteredTextFieldCell.h; path = RSVerticallyCenteredTextFieldCell/RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
+		373F5FAA1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSVerticallyCenteredTextFieldCell.m; path = RSVerticallyCenteredTextFieldCell/RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
+		373F5FAC1A9AAF9600E884AB /* twodo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "twodo-Bridging-Header.h"; sourceTree = "<group>"; };
 		3765DDA31A885FA200D532A9 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		3765DDA51A88687500D532A9 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		3765DDA61A88687500D532A9 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -105,8 +109,11 @@
 		37FCD1601A69F0F900A6FDB2 /* twodo */ = {
 			isa = PBXGroup;
 			children = (
+				373F5FA91A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.h */,
+				373F5FAA1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m */,
 				3775FE111A6C8F5F001F807E /* Resources */,
 				37FCD1631A69F0F900A6FDB2 /* AppDelegate.swift */,
+				373F5FAC1A9AAF9600E884AB /* twodo-Bridging-Header.h */,
 				37FCD1651A69F0F900A6FDB2 /* Images.xcassets */,
 				3775FE181A6C8FE3001F807E /* MainMenu.xib */,
 				37FCD1611A69F0F900A6FDB2 /* Supporting Files */,
@@ -251,6 +258,7 @@
 				37FCD1641A69F0F900A6FDB2 /* AppDelegate.swift in Sources */,
 				3775FE1C1A6CA419001F807E /* canBecomeKeyWindow.m in Sources */,
 				3775FE0E1A6C8E04001F807E /* IconView.swift in Sources */,
+				373F5FAB1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				3775FE1F1A6CA7E4001F807E /* twodo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,6 +368,7 @@
 				INFOPLIST_FILE = twodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "twodo/twodo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -373,6 +382,7 @@
 				INFOPLIST_FILE = twodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "twodo/twodo-Bridging-Header.h";
 			};
 			name = Release;
 		};

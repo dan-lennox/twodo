@@ -9,6 +9,7 @@
 import Cocoa
 import CoreData
 
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate
 {
@@ -27,7 +28,11 @@ class AppDelegate: NSObject, NSApplicationDelegate
     
     @IBOutlet weak var currentStreak: NSTextField!
     @IBOutlet weak var longestStreak: NSTextField!
-    
+  
+    // Todo: new "list item" class that extents 
+    // NSManagedObject - Can then extend with setAppearanceTicked, setAppearanceUnticked etc.
+    // Check how this all fits in with writing solid MVC apps though, might be the wrong way
+    // to do this.
     var listItem1: NSManagedObject!
     var listItem2: NSManagedObject!
     var streakRecorder: NSManagedObject!
@@ -45,6 +50,8 @@ class AppDelegate: NSObject, NSApplicationDelegate
     }
   
   var listState: State
+  
+  var yesterdays_current_streak: Int
 
   func saveData() {
     let managedContext = self.managedObjectContext!
@@ -56,7 +63,15 @@ class AppDelegate: NSObject, NSApplicationDelegate
     self.listItem2.setValue(self.item2Text.stringValue, forKey: "text")
     self.listItem2.setValue(self.item2State.state, forKey: "state")
     
+    self.streakRecorder.setValue(self.currentStreak.integerValue, forKey: "current");
+    self.streakRecorder.setValue(self.longestStreak.integerValue, forKey: "longest");
+    
+    //Debug: Reset record
+    //self.streakRecorder.setValue(0, forKey: "longest");
+    
     self.streakRecorder.setValue(NSDate(), forKey: "last_use");
+    
+    println("Data saved")
     
     if !managedContext.save(&error) {
         println("Could not save \(error), \(error?.userInfo)")
@@ -68,7 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
     
     if sender.state == 1 {
       color = NSColor.grayColor()
-      
+      self.updateStreak()
     }
     else {
         // An item has been unchecked.
@@ -85,6 +100,37 @@ class AppDelegate: NSObject, NSApplicationDelegate
         // AND we've unticked something.
         // then decrement the current.
       
+      var other: NSButton
+      
+      if sender.identifier == "item1" {
+        other = self.item2State
+      }
+      else {
+        other = self.item1State
+      }
+      
+      if other.state == 1 {
+        
+        // Issue:
+        // Before we decrement we need to know what 0 is. If the current streak
+        // is 2, we don't want to decrement down to 1. We only want to decrement down
+        // from 3.
+        
+        println("debug decrements")
+        println(self.currentStreak.integerValue)
+        println(self.yesterdays_current_streak)
+        if self.currentStreak.integerValue >= self.yesterdays_current_streak {
+          println("current streak")
+          println(self.currentStreak.integerValue)
+          println("yesterdays streak")
+          println(self.yesterdays_current_streak)
+          self.currentStreak.integerValue--
+          if self.longestStreak.integerValue > self.streakRecorder.valueForKey("longest") as Int {
+            self.longestStreak.integerValue--
+          }
+        }
+      }
+      
     }
     if sender.identifier == "item1" {
         self.item1Text.textColor = color
@@ -92,9 +138,8 @@ class AppDelegate: NSObject, NSApplicationDelegate
     else {
         self.item2Text.textColor = color
     }
-    self.saveData()
-    self.updateStreak()
-    self.updateUI()
+    
+//    self.saveData()
   }
   
   override init()
@@ -104,6 +149,10 @@ class AppDelegate: NSObject, NSApplicationDelegate
       let item = bar.statusItemWithLength(-1);
     
       self.listState = State.NewDay
+    
+      self.yesterdays_current_streak = 0
+    
+      println("called init")
       
       self.icon = IconView(imageName: "icon", item: item);
       item.view = icon;
@@ -115,12 +164,25 @@ class AppDelegate: NSObject, NSApplicationDelegate
   
   func applicationDidFinishLaunching(aNotification: NSNotification?)
   {
-      // Insert code here to initialize your application
-      self.loadListItems()
-      self.loadStreakRecorder()
-      self.updateStreak()
-      self.setState()
-      self.updateUI()
+    // Insert code here to initialize your application
+    self.loadListItems()
+    self.loadStreakRecorder()
+    
+    self.updateUI()
+    
+    // Store yesterdays current streak.
+    self.yesterdays_current_streak = self.streakRecorder.valueForKey("current") as Int
+    println("yesterday on init")
+    println(self.yesterdays_current_streak)
+    self.currentStreak.integerValue = self.yesterdays_current_streak
+    self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
+    
+    
+    self.updateStreak()
+    self.updateUI() // The two calls to this are kind of crappy. Refactor..
+    
+    
+    self.setState()
   }
   
   func setState() {
@@ -135,30 +197,48 @@ class AppDelegate: NSObject, NSApplicationDelegate
   func applicationDidResignActive(notification: NSNotification) {
       // Save our data when the user clicks out of the app.
       //self.updateStreak()
-      self.saveData()
+      //self.saveData()
+    self.saveData()
   }
     
   func updateStreak() {
     
     if (self.bothItemsTicked()) {
+  
       // Increment streak
       println("increment streak")
-      let new_streak = self.streakRecorder.valueForKey("current") as Int + 1
-      self.streakRecorder.setValue(new_streak, forKey: "current")
-      // Check if we've beaten our longest ever streak.
-      if new_streak > self.streakRecorder.valueForKey("longest") as Int {
-        self.streakRecorder.setValue(new_streak, forKey: "longest")
+      
+      // Lets only save the streak data if it's a new day.
+      if self.isNewDay() {
+        println("new day")
+        self.streakRecorder.setValue(self.currentStreak.integerValue, forKey: "current")
+        self.streakRecorder.setValue(self.longestStreak.integerValue, forKey: "longest")
+        self.clearLists()
       }
+      else {
+        println("gotohere")
+        // As soon as both items re ticked, we just update the UI for the user
+        // to see
+        self.currentStreak.integerValue = self.currentStreak.integerValue + 1
+        if self.currentStreak.integerValue > self.longestStreak.integerValue {
+          // Check if we've beaten our longest ever streak.
+          self.longestStreak.integerValue = self.currentStreak.integerValue
+        }
+      }
+      
+      
     }
     else if self.isNewDay() {
+      println("tried to decrement streak")
       // The streak is broken and it's a new day, reset the streak.
+      self.currentStreak.integerValue = 0
       self.streakRecorder.setValue(0, forKey: "current")
       // If it's a new day, streak or no streak, we clear the lists.
       self.clearLists()
       println("reset streak")
     }
     
-    self.saveData()
+    //self.saveData()
     println("called update streak")
   }
   
@@ -167,23 +247,33 @@ class AppDelegate: NSObject, NSApplicationDelegate
     
     let calendar = NSCalendar.currentCalendar()
     
-    // Debug streaks:
-    //let today:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: NSDate(), options: nil)
-    let today = NSDate()
+    // Debug streaks (make everyday a new day):
+    let today:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: NSDate(), options: nil)
+    let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today!)
     
-    let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today)
+    // Non debug
+    //let today = NSDate()
+    //let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today)
+
     let last_use = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: self.streakRecorder.valueForKey("last_use") as NSDate)
     
     // If both the day and the month are different, it's a new day.
     if (!(current_date.day == last_use.day && current_date.month == current_date.month)) {
       newDay = true
     }
+    // We only need to know it's a new day once right?
+    self.streakRecorder.setValue(today, forKey: "last_use")
     return newDay
   }
   
   func bothItemsTicked() -> Bool {
     var ticked = false
-    if (self.listItem1.valueForKey("state") as Int == 1 && self.listItem2.valueForKey("state") as Int == 1) {
+    let list1State = self.item1State.integerValue
+    let list2State = self.item2State.integerValue
+    println("items ticked")
+    println(list1State)
+    println(list2State)
+    if (list1State == 1 && list2State == 1) {
       ticked = true
     }
     return ticked
@@ -191,6 +281,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
   
     
   func clearLists() {
+    println("cleared lists")
     self.listItem1.setValue("", forKey: "text")
     self.listItem1.setValue(0, forKey: "state")
     self.listItem2.setValue("", forKey: "text")
@@ -259,8 +350,8 @@ class AppDelegate: NSObject, NSApplicationDelegate
     self.item2Text.stringValue = self.listItem2.valueForKey("text") as String
     self.item2State.state = self.listItem2.valueForKey("state") as Int
 
-    self.currentStreak.integerValue = self.streakRecorder.valueForKey("current") as Int
-    self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
+    //self.currentStreak.integerValue = self.streakRecorder.valueForKey("current") as Int
+    //self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
   }
     
   func loadStreakRecorder() {
@@ -296,6 +387,9 @@ class AppDelegate: NSObject, NSApplicationDelegate
       else {
         // Load if not
         self.streakRecorder = results[0]
+        // Init UI.
+        self.currentStreak.integerValue = self.streakRecorder.valueForKey("current") as Int
+        self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
       }
     } else {
         println("Could not fetch \(error), \(error!.userInfo)")
@@ -305,6 +399,8 @@ class AppDelegate: NSObject, NSApplicationDelegate
   func applicationWillTerminate(aNotification: NSNotification?)
   {
     // Insert code here to tear down your application
+    // This is only called when the user actually quits.
+    println("tear down")
     self.saveData()
   }
   
