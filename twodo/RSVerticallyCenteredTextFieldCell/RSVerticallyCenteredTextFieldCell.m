@@ -14,7 +14,8 @@
 {
 	// Get the parent's idea of where we should draw
 	NSRect newRect = [super drawingRectForBounds:theRect];
-
+  NSLog(@"height");
+  NSLog(@"%@", [[NSNumber numberWithFloat:newRect.size.height] stringValue]);
 	// When the text field is being 
 	// edited or selected, we have to turn off the magic because it screws up 
 	// the configuration of the field editor.  We sneak around this by 
@@ -29,8 +30,8 @@
 		float heightDelta = newRect.size.height - textSize.height;	
 		if (heightDelta > 0)
 		{
-			newRect.size.height -= heightDelta;
-			newRect.origin.y += (heightDelta / 2);
+			//newRect.size.height -= heightDelta;
+			//newRect.origin.y += (heightDelta / 2);
 		}
 	}
 	

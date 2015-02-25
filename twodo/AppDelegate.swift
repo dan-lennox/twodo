@@ -168,6 +168,16 @@ class AppDelegate: NSObject, NSApplicationDelegate
     self.loadListItems()
     self.loadStreakRecorder()
     
+//    // Color fixes
+//    let color = NSColor.blueColor()
+//    let placeholder = (self.item1Text.cell() as NSTextFieldCell).attributedStringValue
+//    placeholder.setValue(color, forKey: NSForegroundColorAttributeName)
+////    let attrs = [NSForegroundColorAttributeName: color, NSFontSizeAttribute: 50.0, NSFontFamilyAttribute: "Comic Sans"]
+////    let text: String = (self.item1Text.cell() as NSTextFieldCell).placeholderString!
+////    let placeholder: NSAttributedString = NSAttributedString(string: text, attributes: attrs)
+//
+//    (self.item1Text.cell() as NSTextFieldCell).placeholderAttributedString = placeholder
+    
     self.updateUI()
     
     // Store yesterdays current streak.
@@ -248,12 +258,12 @@ class AppDelegate: NSObject, NSApplicationDelegate
     let calendar = NSCalendar.currentCalendar()
     
     // Debug streaks (make everyday a new day):
-    let today:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: NSDate(), options: nil)
-    let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today!)
+    //let today:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: NSDate(), options: nil)
+    //let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today!)
     
     // Non debug
-    //let today = NSDate()
-    //let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today)
+    let today = NSDate()
+    let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today)
 
     let last_use = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: self.streakRecorder.valueForKey("last_use") as NSDate)
     

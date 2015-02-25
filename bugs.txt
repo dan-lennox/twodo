@@ -10,6 +10,10 @@ TODO:
 - OO Refactor - turn list items and streak recorder into new classes that extend 
   NSManagedObject
 - Visual feedback for - new record, finishing your daily tasks
+
+- I should almost definitely be using an NSTable with NSTableCells for the layout of the
+two list items....
+
 - Implement messenger status box
 - Write app description / sales pitch.
 - TESTING (write actual swift unit tests for fun?)
