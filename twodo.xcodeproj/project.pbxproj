@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		373F5FAB1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 373F5FAA1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m */; };
+		374EBD261A9DEDA4007B8BB7 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EBD251A9DEDA4007B8BB7 /* CustomTextField.swift */; };
 		3765DDA41A885FA200D532A9 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA31A885FA200D532A9 /* bg.png */; };
 		3765DDA81A88687500D532A9 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA51A88687500D532A9 /* 1.png */; };
 		3765DDA91A88687500D532A9 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA61A88687500D532A9 /* 2.png */; };
@@ -37,6 +38,7 @@
 		373F5FA91A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSVerticallyCenteredTextFieldCell.h; path = RSVerticallyCenteredTextFieldCell/RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
 		373F5FAA1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSVerticallyCenteredTextFieldCell.m; path = RSVerticallyCenteredTextFieldCell/RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
 		373F5FAC1A9AAF9600E884AB /* twodo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "twodo-Bridging-Header.h"; sourceTree = "<group>"; };
+		374EBD251A9DEDA4007B8BB7 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		3765DDA31A885FA200D532A9 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		3765DDA51A88687500D532A9 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		3765DDA61A88687500D532A9 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				3775FE1A1A6CA3FC001F807E /* canBecomeKeyWindow.h */,
 				3775FE1B1A6CA419001F807E /* canBecomeKeyWindow.m */,
 				3775FE1D1A6CA7E4001F807E /* twodo.xcdatamodeld */,
+				374EBD251A9DEDA4007B8BB7 /* CustomTextField.swift */,
 			);
 			path = twodo;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			files = (
 				37FCD1641A69F0F900A6FDB2 /* AppDelegate.swift in Sources */,
 				3775FE1C1A6CA419001F807E /* canBecomeKeyWindow.m in Sources */,
+				374EBD261A9DEDA4007B8BB7 /* CustomTextField.swift in Sources */,
 				3775FE0E1A6C8E04001F807E /* IconView.swift in Sources */,
 				373F5FAB1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				3775FE1F1A6CA7E4001F807E /* twodo.xcdatamodeld in Sources */,

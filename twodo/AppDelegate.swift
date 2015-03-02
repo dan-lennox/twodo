@@ -9,7 +9,6 @@
 import Cocoa
 import CoreData
 
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate
 {
@@ -23,8 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate
     @IBOutlet weak var item1Text: NSTextField!
     @IBOutlet weak var item2State: NSButton!
     @IBOutlet weak var item2Text: NSTextField!
-    @IBOutlet weak var save: NSButton!
-
     
     @IBOutlet weak var currentStreak: NSTextField!
     @IBOutlet weak var longestStreak: NSTextField!
@@ -67,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
     self.streakRecorder.setValue(self.longestStreak.integerValue, forKey: "longest");
     
     //Debug: Reset record
-    //self.streakRecorder.setValue(0, forKey: "longest");
+    self.streakRecorder.setValue(0, forKey: "longest");
     
     self.streakRecorder.setValue(NSDate(), forKey: "last_use");
     
@@ -83,48 +80,30 @@ class AppDelegate: NSObject, NSApplicationDelegate
     
     if sender.state == 1 {
       color = NSColor.grayColor()
+      if (self.bothItemsTicked()) {
+        self.currentStreak.integerValue = self.currentStreak.integerValue + 1
+      }
       self.updateStreak()
     }
     else {
-        // An item has been unchecked.
-        // if the OTHER checkbox is still ticked - not sure how to do this.
-        // Then we know both were ticked previously,
-        // We need to take back the increase to the streak! As the user has 'undone' a task.
-        // - Decrement the current streak and longest (if current > longest).
-      
-        // We can update the streak current and longest UI
-        // but lets only allow actual saving of the streak data if its a new day.
-        // Then we can do this here
-      
-        // if UI current > stored current
-        // AND we've unticked something.
-        // then decrement the current.
-      
       var other: NSButton
       
+      // Find out the identifier of the other list item.
       if sender.identifier == "item1" {
         other = self.item2State
       }
       else {
         other = self.item1State
       }
-      
+      // If the other list item is ticked, and this list item has just been unticked, then we know
+      // that both were ticked previously and a task has been "undone" so we should decrement the streak.
       if other.state == 1 {
-        
-        // Issue:
-        // Before we decrement we need to know what 0 is. If the current streak
-        // is 2, we don't want to decrement down to 1. We only want to decrement down
-        // from 3.
-        
-        println("debug decrements")
-        println(self.currentStreak.integerValue)
-        println(self.yesterdays_current_streak)
+        // Check the current streak to see if it's bigger than yesterdays. If so then
+        // we need to decrement when an item is unchecked.
         if self.currentStreak.integerValue >= self.yesterdays_current_streak {
-          println("current streak")
-          println(self.currentStreak.integerValue)
-          println("yesterdays streak")
-          println(self.yesterdays_current_streak)
           self.currentStreak.integerValue--
+          // We also then need to decrement the longest streak record if it was broken by today's
+          // temporary result.
           if self.longestStreak.integerValue > self.streakRecorder.valueForKey("longest") as Int {
             self.longestStreak.integerValue--
           }
@@ -138,8 +117,6 @@ class AppDelegate: NSObject, NSApplicationDelegate
     else {
         self.item2Text.textColor = color
     }
-    
-//    self.saveData()
   }
   
   override init()
@@ -168,22 +145,11 @@ class AppDelegate: NSObject, NSApplicationDelegate
     self.loadListItems()
     self.loadStreakRecorder()
     
-//    // Color fixes
-//    let color = NSColor.blueColor()
-//    let placeholder = (self.item1Text.cell() as NSTextFieldCell).attributedStringValue
-//    placeholder.setValue(color, forKey: NSForegroundColorAttributeName)
-////    let attrs = [NSForegroundColorAttributeName: color, NSFontSizeAttribute: 50.0, NSFontFamilyAttribute: "Comic Sans"]
-////    let text: String = (self.item1Text.cell() as NSTextFieldCell).placeholderString!
-////    let placeholder: NSAttributedString = NSAttributedString(string: text, attributes: attrs)
-//
-//    (self.item1Text.cell() as NSTextFieldCell).placeholderAttributedString = placeholder
-    
     self.updateUI()
     
     // Store yesterdays current streak.
     self.yesterdays_current_streak = self.streakRecorder.valueForKey("current") as Int
-    println("yesterday on init")
-    println(self.yesterdays_current_streak)
+
     self.currentStreak.integerValue = self.yesterdays_current_streak
     self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
     
@@ -205,8 +171,8 @@ class AppDelegate: NSObject, NSApplicationDelegate
   }
   
   func applicationDidResignActive(notification: NSNotification) {
-      // Save our data when the user clicks out of the app.
-      //self.updateStreak()
+    // Save our data when the user clicks out of the app.
+    self.updateStreak()
       //self.saveData()
     self.saveData()
   }
@@ -214,42 +180,27 @@ class AppDelegate: NSObject, NSApplicationDelegate
   func updateStreak() {
     
     if (self.bothItemsTicked()) {
-  
-      // Increment streak
-      println("increment streak")
       
       // Lets only save the streak data if it's a new day.
       if self.isNewDay() {
-        println("new day")
         self.streakRecorder.setValue(self.currentStreak.integerValue, forKey: "current")
         self.streakRecorder.setValue(self.longestStreak.integerValue, forKey: "longest")
         self.clearLists()
       }
       else {
-        println("gotohere")
-        // As soon as both items re ticked, we just update the UI for the user
-        // to see
-        self.currentStreak.integerValue = self.currentStreak.integerValue + 1
         if self.currentStreak.integerValue > self.longestStreak.integerValue {
           // Check if we've beaten our longest ever streak.
           self.longestStreak.integerValue = self.currentStreak.integerValue
         }
       }
-      
-      
     }
     else if self.isNewDay() {
-      println("tried to decrement streak")
       // The streak is broken and it's a new day, reset the streak.
       self.currentStreak.integerValue = 0
       self.streakRecorder.setValue(0, forKey: "current")
       // If it's a new day, streak or no streak, we clear the lists.
       self.clearLists()
-      println("reset streak")
     }
-    
-    //self.saveData()
-    println("called update streak")
   }
   
   func isNewDay() -> Bool {
@@ -258,8 +209,8 @@ class AppDelegate: NSObject, NSApplicationDelegate
     let calendar = NSCalendar.currentCalendar()
     
     // Debug streaks (make everyday a new day):
-    //let today:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: NSDate(), options: nil)
-    //let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today!)
+//    let today:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: NSDate(), options: nil)
+//    let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today!)
     
     // Non debug
     let today = NSDate()
@@ -270,9 +221,10 @@ class AppDelegate: NSObject, NSApplicationDelegate
     // If both the day and the month are different, it's a new day.
     if (!(current_date.day == last_use.day && current_date.month == current_date.month)) {
       newDay = true
+      // We only need to know it's a new day once right?
+      self.streakRecorder.setValue(today, forKey: "last_use")
     }
-    // We only need to know it's a new day once right?
-    self.streakRecorder.setValue(today, forKey: "last_use")
+    
     return newDay
   }
   

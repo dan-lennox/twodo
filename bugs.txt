@@ -1,9 +1,10 @@
 TODO:
 
+- The clicking issue with the icon
+
+- Not ticking over to new day when app is still open overnight. (Testing tonight)
 
 - Remove flash from tick
-- Hand hover on tick
-- Vertically center list item text
 - List item green background and strikethrough on tick. 
 
 
@@ -11,8 +12,7 @@ TODO:
   NSManagedObject
 - Visual feedback for - new record, finishing your daily tasks
 
-- I should almost definitely be using an NSTable with NSTableCells for the layout of the
-two list items....
+
 
 - Implement messenger status box
 - Write app description / sales pitch.
@@ -22,24 +22,13 @@ Testing for fresh installs (empty data)
 
 - Submit to app store.
 
+----------------------------------------------------------------------------------------
 
 Potential future features
 - UI button to reset record?
 - Bar graphic - 1 segment = 1 day
+- I should almost definitely be using an NSTable with NSTableCells for the layout of the
+two list items....
+- Proper MVC pattern usage refactor.
 
 
-BUGS:
-
-- reopen the app, anything that was checked already doesn't have grey text anymore.
-- The clicking issue with the icon
-- Got to record of 3 days... then I'm not sure but it might not have reset the current streak
-after the end of day 4.
-
-
-
-
-
-
-
-
-Need to ensure that the current streak holds when I reopen the app.

@@ -756,7 +756,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="293" height="54"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcI-et-RVW">
+                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcI-et-RVW" customClass="CustomTextField" customModule="twodo" customModuleProvider="target">
                                 <rect key="frame" x="12" y="15" width="268" height="23"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="Most important task" id="vPF-UX-kmM">
                                     <font key="font" size="14" name="Helvetica"/>
@@ -775,7 +775,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="293" height="54"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J55-Pq-CoE">
+                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J55-Pq-CoE" customClass="CustomTextField" customModule="twodo" customModuleProvider="target">
                                 <rect key="frame" x="12" y="15" width="268" height="23"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="Second most important task" id="FTI-yg-i1D">
                                     <font key="font" size="14" name="Helvetica"/>
