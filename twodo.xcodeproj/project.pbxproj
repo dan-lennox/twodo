@@ -18,7 +18,8 @@
 		3775FE191A6C8FE3001F807E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3775FE181A6C8FE3001F807E /* MainMenu.xib */; };
 		3775FE1C1A6CA419001F807E /* canBecomeKeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3775FE1B1A6CA419001F807E /* canBecomeKeyWindow.m */; };
 		3775FE1F1A6CA7E4001F807E /* twodo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3775FE1D1A6CA7E4001F807E /* twodo.xcdatamodeld */; };
-		37BAFDC51A7F3F3200E49831 /* App Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BAFDC41A7F3F3200E49831 /* App Background.png */; };
+		37E62CFA1ABBF25900119458 /* CustomButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E62CF91ABBF25900119458 /* CustomButtonCell.swift */; };
+		37E62CFE1ABFA40900119458 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E62CFD1ABFA40900119458 /* CustomViewController.swift */; };
 		37FCD1641A69F0F900A6FDB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FCD1631A69F0F900A6FDB2 /* AppDelegate.swift */; };
 		37FCD1661A69F0F900A6FDB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37FCD1651A69F0F900A6FDB2 /* Images.xcassets */; };
 		37FCD1751A69F0F900A6FDB2 /* twodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FCD1741A69F0F900A6FDB2 /* twodoTests.swift */; };
@@ -49,7 +50,8 @@
 		3775FE1A1A6CA3FC001F807E /* canBecomeKeyWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = canBecomeKeyWindow.h; sourceTree = "<group>"; };
 		3775FE1B1A6CA419001F807E /* canBecomeKeyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = canBecomeKeyWindow.m; sourceTree = "<group>"; };
 		3775FE1E1A6CA7E4001F807E /* twodo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = twodo.xcdatamodel; sourceTree = "<group>"; };
-		37BAFDC41A7F3F3200E49831 /* App Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App Background.png"; path = "../../../../Downloads/App Background.png"; sourceTree = "<group>"; };
+		37E62CF91ABBF25900119458 /* CustomButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtonCell.swift; sourceTree = "<group>"; };
+		37E62CFD1ABFA40900119458 /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		37FCD15E1A69F0F900A6FDB2 /* twodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37FCD1621A69F0F900A6FDB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		37FCD1631A69F0F900A6FDB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,7 +86,6 @@
 				3765DDA51A88687500D532A9 /* 1.png */,
 				3765DDA61A88687500D532A9 /* 2.png */,
 				3765DDA71A88687500D532A9 /* tick.png */,
-				37BAFDC41A7F3F3200E49831 /* App Background.png */,
 				3775FE161A6C8F97001F807E /* icon@2x.png */,
 			);
 			name = Resources;
@@ -124,6 +125,8 @@
 				3775FE1B1A6CA419001F807E /* canBecomeKeyWindow.m */,
 				3775FE1D1A6CA7E4001F807E /* twodo.xcdatamodeld */,
 				374EBD251A9DEDA4007B8BB7 /* CustomTextField.swift */,
+				37E62CF91ABBF25900119458 /* CustomButtonCell.swift */,
+				37E62CFD1ABFA40900119458 /* CustomViewController.swift */,
 			);
 			path = twodo;
 			sourceTree = "<group>";
@@ -238,7 +241,6 @@
 				3765DDA91A88687500D532A9 /* 2.png in Resources */,
 				3775FE171A6C8F97001F807E /* icon@2x.png in Resources */,
 				3765DDA81A88687500D532A9 /* 1.png in Resources */,
-				37BAFDC51A7F3F3200E49831 /* App Background.png in Resources */,
 				3765DDAA1A88687500D532A9 /* tick.png in Resources */,
 				3775FE191A6C8FE3001F807E /* MainMenu.xib in Resources */,
 			);
@@ -264,6 +266,8 @@
 				3775FE0E1A6C8E04001F807E /* IconView.swift in Sources */,
 				373F5FAB1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				3775FE1F1A6CA7E4001F807E /* twodo.xcdatamodeld in Sources */,
+				37E62CFA1ABBF25900119458 /* CustomButtonCell.swift in Sources */,
+				37E62CFE1ABFA40900119458 /* CustomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

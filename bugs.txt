@@ -1,26 +1,39 @@
 TODO:
 
-- The clicking issue with the icon
+Release blockers.
 
 - Not ticking over to new day when app is still open overnight. (Testing tonight)
 
-- Remove flash from tick
-- List item green background and strikethrough on tick. 
+- Move popup a few pixels down like memory clean has.
 
+- Slightly difficult to reproduce app where the status item stays highlighted when
+the popover is hidden.
 
-- OO Refactor - turn list items and streak recorder into new classes that extend 
-  NSManagedObject
-- Visual feedback for - new record, finishing your daily tasks
+- menubar attach/detach feature like memory clean has
 
-
-
-- Implement messenger status box
 - Write app description / sales pitch.
 - TESTING (write actual swift unit tests for fun?)
 
 Testing for fresh installs (empty data)
 
+Create icon
+
+- ensure the storage area in application support folder doesn't have weird name like danlennox.twodo
+
 - Submit to app store.
+
+- Implement messenger status box
+  - New record!
+  - +5 - do you really want to go back to 0?
+  - 
+
+
+
+
+
+
+
+
 
 ----------------------------------------------------------------------------------------
 
@@ -31,4 +44,9 @@ Potential future features
 two list items....
 - Proper MVC pattern usage refactor.
 
+- OO Refactor - turn list items and streak recorder into new classes that extend 
+  NSManagedObject
+
+Udemy 50% off first course
+50AWESOME
 

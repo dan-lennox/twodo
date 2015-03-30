@@ -16,10 +16,10 @@
 //The pragma statements disable the corresponding warning for overriding an already-implemented method
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
-- (BOOL)canBecomeKeyWindow
-{
-    return YES;
-}
+//- (BOOL)canBecomeKeyWindow
+//{
+//    return YES;
+//}
 #pragma clang diagnostic pop
 
 @end

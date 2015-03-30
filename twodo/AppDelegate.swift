@@ -8,21 +8,32 @@
 
 import Cocoa
 import CoreData
+import AppKit
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate
+class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
 {
   //  @IBOutlet var window: NSWindow!
-    
+  
+  
+    @IBOutlet weak var currentApp: NSApplication!
+  
+    @IBOutlet weak var detachWindow: NSWindow!
+  
     @IBOutlet var popover : NSPopover!
-    
+  
+    @IBOutlet weak var PopUpViewController: NSViewController!
+  
     let icon: IconView;
     
     @IBOutlet weak var item1State: NSButton!
-    @IBOutlet weak var item1Text: NSTextField!
+    @IBOutlet weak var item1Text: CustomTextField!
     @IBOutlet weak var item2State: NSButton!
-    @IBOutlet weak var item2Text: NSTextField!
-    
+    @IBOutlet weak var item2Text: CustomTextField!
+    @IBOutlet weak var item1Box: NSBox!
+    @IBOutlet weak var item2Box: NSBox!
+  
+  
     @IBOutlet weak var currentStreak: NSTextField!
     @IBOutlet weak var longestStreak: NSTextField!
   
@@ -33,7 +44,10 @@ class AppDelegate: NSObject, NSApplicationDelegate
     var listItem1: NSManagedObject!
     var listItem2: NSManagedObject!
     var streakRecorder: NSManagedObject!
-    
+  
+    var onColor: NSColor!
+    var offColor: NSColor!
+  
     @IBOutlet weak var heading: NSTextField!
     
     enum State {
@@ -50,6 +64,12 @@ class AppDelegate: NSObject, NSApplicationDelegate
   
   var yesterdays_current_streak: Int
 
+  @IBAction func item1Enter(sender: CustomTextField) {
+    sender.resignFirstResponder()
+    item2Text.becomeFirstResponder()
+  }
+  
+  
   func saveData() {
     let managedContext = self.managedObjectContext!
     var error: NSError?
@@ -64,22 +84,22 @@ class AppDelegate: NSObject, NSApplicationDelegate
     self.streakRecorder.setValue(self.longestStreak.integerValue, forKey: "longest");
     
     //Debug: Reset record
-    self.streakRecorder.setValue(0, forKey: "longest");
+    //self.streakRecorder.setValue(0, forKey: "longest");
     
     self.streakRecorder.setValue(NSDate(), forKey: "last_use");
     
     println("Data saved")
     
     if !managedContext.save(&error) {
-        println("Could not save \(error), \(error?.userInfo)")
+      println("Could not save \(error), \(error?.userInfo)")
     }
   }
   
   @IBAction func textChecked(sender: NSButton) {
-    var color = NSColor.blackColor()
+    var color = NSColor.whiteColor()
     
     if sender.state == 1 {
-      color = NSColor.grayColor()
+      color = NSColor.redColor()
       if (self.bothItemsTicked()) {
         self.currentStreak.integerValue = self.currentStreak.integerValue + 1
       }
@@ -111,39 +131,53 @@ class AppDelegate: NSObject, NSApplicationDelegate
       }
       
     }
-    if sender.identifier == "item1" {
-        self.item1Text.textColor = color
-    }
-    else {
-        self.item2Text.textColor = color
-    }
+    self.updateTextStatus()
   }
   
   override init()
   {
       let bar = NSStatusBar.systemStatusBar();
-      
-      let item = bar.statusItemWithLength(-1);
+      let length: CGFloat = -1
+      let item = bar.statusItemWithLength(length);
     
       self.listState = State.NewDay
-    
       self.yesterdays_current_streak = 0
-    
-      println("called init")
       
       self.icon = IconView(imageName: "icon", item: item);
       item.view = icon;
-
+  
+    
+    
+    
       super.init();
+    
+      self.initColors()
   }
   
-
+  func initColors() {
+    let rFloat: CGFloat = 0.0/255.0
+    let gFloat: CGFloat = 189.0/255.0
+    let bFloat: CGFloat = 146.0/255.0
+    
+    self.onColor = NSColor(red: rFloat, green: gFloat, blue: bFloat, alpha: 1.0)
+    
+    let grey: CGFloat = 41.0/255.0
+    
+    self.offColor = NSColor(red: grey, green: grey, blue: grey, alpha: 1.0)
+  }
+  
+  func applicationWillFinishLaunching(notification: NSNotification) {
+    // Hide the dock item.
+    NSApp.setActivationPolicy(.Accessory)
+  }
   
   func applicationDidFinishLaunching(aNotification: NSNotification?)
   {
     // Insert code here to initialize your application
     self.loadListItems()
     self.loadStreakRecorder()
+    
+    
     
     self.updateUI()
     
@@ -155,28 +189,56 @@ class AppDelegate: NSObject, NSApplicationDelegate
     
     
     self.updateStreak()
-    self.updateUI() // The two calls to this are kind of crappy. Refactor..
-    
+    self.updateUI() // The two calls to this are kind of crappy. Refactor.. 
+    self.updateTextStatus()
     
     self.setState()
+    
+    self.item1Text.highlighted = false
+    
+
+    
   }
+  
+  func popoverShouldClose(popover: NSPopover) -> Bool {
+    println("CALLED THE MAGIC")
+    return true;
+  }
+  
+  func detachableWindowForPopover(popover: NSPopover) -> NSWindow? {
+    return detachWindow
+  }
+  
   
   func setState() {
     // No inputs (update style function).
     // Simply looks at the few vars and sets the state based on criteria.
+    
+    // Sets some application state based on the arrangement of items.
+    
+    // Messages are then displayed based on state.
   }
     
   func applicationDidBecomeActive(notification: NSNotification) {
       //self.updateUI()
+    //self.popover?.open()
+    println("became active")
   }
   
   func applicationDidResignActive(notification: NSNotification) {
+    println("resigned active")
     // Save our data when the user clicks out of the app.
     self.updateStreak()
       //self.saveData()
     self.saveData()
-  }
     
+//    self.item1Text.becomeFirstResponder()
+    self.icon.isSelected = !self.icon.isSelected
+    self.icon.needsDisplay = false
+    self.popover?.close()
+  }
+
+  
   func updateStreak() {
     
     if (self.bothItemsTicked()) {
@@ -232,9 +294,6 @@ class AppDelegate: NSObject, NSApplicationDelegate
     var ticked = false
     let list1State = self.item1State.integerValue
     let list2State = self.item2State.integerValue
-    println("items ticked")
-    println(list1State)
-    println(list2State)
     if (list1State == 1 && list2State == 1) {
       ticked = true
     }
@@ -243,7 +302,6 @@ class AppDelegate: NSObject, NSApplicationDelegate
   
     
   func clearLists() {
-    println("cleared lists")
     self.listItem1.setValue("", forKey: "text")
     self.listItem1.setValue(0, forKey: "state")
     self.listItem2.setValue("", forKey: "text")
@@ -312,8 +370,36 @@ class AppDelegate: NSObject, NSApplicationDelegate
     self.item2Text.stringValue = self.listItem2.valueForKey("text") as String
     self.item2State.state = self.listItem2.valueForKey("state") as Int
 
+    
+    
     //self.currentStreak.integerValue = self.streakRecorder.valueForKey("current") as Int
     //self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
+  }
+  
+  func updateTextStatus() {
+    if self.item1State.state == 1 {
+      self.item1Box.fillColor = self.onColor
+      self.item1Text.editable = false
+      self.item2Text.becomeFirstResponder()
+      self.item1Text.addStrikethrough()
+    }
+    else {
+      self.item1Text.removeStrikethrough()
+      self.item1Box.fillColor = self.offColor
+      self.item1Text.editable = true
+    }
+    
+    if self.item2State.state == 1 {
+      self.item2Box.fillColor = self.onColor
+      self.item2Text.editable = false
+      self.item1Text.becomeFirstResponder()
+      self.item2Text.addStrikethrough()
+    }
+    else {
+      self.item2Box.fillColor = self.offColor
+      self.item2Text.editable = true
+      self.item2Text.removeStrikethrough()
+    }
   }
     
   func loadStreakRecorder() {
@@ -368,25 +454,39 @@ class AppDelegate: NSObject, NSApplicationDelegate
   
   override func awakeFromNib()
   {
-    //NSRectEdge is not enumerated yet; NSMinYEdge == 1
-    //@see NSGeometry.h
-    let edge = 1
+    let edge = NSMinYEdge
     let icon = self.icon
-    let rect = icon.frame
+    var rect = icon.frame
     
+    println("awake")
     icon.onMouseDown = {
-      if (icon.isSelected)
-      {
-        self.popover.showRelativeToRect(rect, ofView: icon, preferredEdge: edge);
-        return
+      println("CALLED MOUSE DOWWWWN")
+      if (icon.isSelected) {
+        println("IS SELECTED")
+
+        
+        
+        self.popover?.showRelativeToRect(rect, ofView: icon, preferredEdge: edge);
+        
+        self.PopUpViewController.view.needsDisplay = true
+        
+        self.currentApp.activateIgnoringOtherApps(true)
+        
+        self.item1Text.becomeFirstResponder()
+//        PopUpViewController.
+     
       }
-      self.popover.close()
+      else {
+        self.popover?.close()
+      }
+
     }
   }
-    
-    
+  
+  
+  
     // MARK: - Core Data stack
-    
+  
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "danlennox.twodo" in the user's Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)
@@ -470,7 +570,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
             }
         }
     }
-    
+  
     func windowWillReturnUndoManager(window: NSWindow) -> NSUndoManager? {
         // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
         if let moc = self.managedObjectContext {
@@ -521,11 +621,16 @@ class AppDelegate: NSObject, NSApplicationDelegate
         return .TerminateNow
     }
 
+  
     
 }
 
 
-
+class MenuDelegate: NSObject, NSMenuDelegate {
+  func menuWillOpen(menu: NSMenu) {
+      println("menu delegate working")
+  }
+}
 
 
 

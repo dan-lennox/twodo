@@ -14,10 +14,16 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="twodo" customModuleProvider="target">
             <connections>
+                <outlet property="PopUpViewController" destination="Mzr-YU-Yq5" id="qfM-NC-GlK"/>
+                <outlet property="application" destination="-3" id="IUo-Z6-xyz"/>
+                <outlet property="currentApp" destination="-3" id="gH0-5B-Omx"/>
                 <outlet property="currentStreak" destination="AKJ-Ij-Iqk" id="Fwb-nX-HFk"/>
+                <outlet property="detachWindow" destination="Zho-bK-fgq" id="iYc-as-p2z"/>
                 <outlet property="heading" destination="sT0-CA-khD" id="k2j-pc-kDP"/>
+                <outlet property="item1Box" destination="c6M-Pr-Bsb" id="XXX-UD-NSB"/>
                 <outlet property="item1State" destination="u6N-Gx-rDY" id="RN2-cB-2T6"/>
                 <outlet property="item1Text" destination="hcI-et-RVW" id="O6Y-fx-spp"/>
+                <outlet property="item2Box" destination="3fq-Hk-6Lt" id="6xi-eu-Vo0"/>
                 <outlet property="item2State" destination="hAA-Mf-V5s" id="piR-0L-pmE"/>
                 <outlet property="item2Text" destination="J55-Pq-CoE" id="iTM-ig-tUP"/>
                 <outlet property="longestStreak" destination="Ajt-Va-cmT" id="Skq-Ku-mWP"/>
@@ -674,14 +680,15 @@
                 </menuItem>
             </items>
         </menu>
-        <viewController id="Mzr-YU-Yq5" userLabel="Popover View Controller">
+        <viewController id="Mzr-YU-Yq5" userLabel="Popover View Controller" customClass="CustomViewController" customModule="twodo" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="OBP-pT-3rU" id="ZFI-iN-lYr"/>
             </connections>
         </viewController>
-        <popover id="79J-8G-uar">
+        <popover animates="NO" appearance="HUD" behavior="semitransient" id="79J-8G-uar">
             <connections>
                 <outlet property="contentViewController" destination="Mzr-YU-Yq5" id="osr-0q-X8O"/>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="lFq-B5-y8t"/>
             </connections>
         </popover>
         <customView id="OBP-pT-3rU">
@@ -740,9 +747,9 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button identifier="item1" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u6N-Gx-rDY">
+                <button identifier="item1" canDrawConcurrently="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u6N-Gx-rDY">
                     <rect key="frame" x="0.0" y="198" width="54" height="54"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="1" imagePosition="overlaps" alignment="center" alternateImage="tick" focusRingType="none" inset="2" id="Eb8-eP-lcL">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="1" imagePosition="overlaps" alignment="center" alternateImage="tick" focusRingType="none" inset="2" id="Eb8-eP-lcL" customClass="CustomButtonCell" customModule="twodo" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -758,11 +765,14 @@
                         <subviews>
                             <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcI-et-RVW" customClass="CustomTextField" customModule="twodo" customModuleProvider="target">
                                 <rect key="frame" x="12" y="15" width="268" height="23"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="Most important task" id="vPF-UX-kmM">
+                                <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="Most important task" id="vPF-UX-kmM">
                                     <font key="font" size="14" name="Helvetica"/>
                                     <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="0.2497513204" green="0.59529976220000003" blue="0.16108451269999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
+                                <connections>
+                                    <action selector="item1Enter:" target="Voe-Tx-rLC" id="WOx-Or-IUi"/>
+                                </connections>
                             </textField>
                         </subviews>
                     </view>
@@ -814,7 +824,7 @@
                 </textField>
                 <button identifier="item2" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hAA-Mf-V5s">
                     <rect key="frame" x="0.0" y="144" width="54" height="54"/>
-                    <buttonCell key="cell" type="bevel" bezelStyle="circular" image="2" imagePosition="left" alternateImage="tick" inset="2" id="JYJ-LW-4gz">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="2" imagePosition="left" alternateImage="tick" inset="2" id="JYJ-LW-4gz" customClass="CustomButtonCell" customModule="twodo" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -825,9 +835,27 @@
             </subviews>
             <point key="canvasLocation" x="529.5" y="440"/>
         </customView>
-        <levelIndicatorCell controlSize="small" state="on" alignment="left" doubleValue="3" maxValue="3" warningValue="3" criticalValue="3" id="g2d-gx-sc9">
-            <font key="font" metaFont="smallSystem"/>
-        </levelIndicatorCell>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="Zho-bK-fgq">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="163" y="199" width="466" height="386"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <view key="contentView" id="As2-Dt-X7r">
+                <rect key="frame" x="0.0" y="0.0" width="466" height="386"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q3C-xj-NTb">
+                        <rect key="frame" x="170" y="151" width="197" height="102"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Popover dragged" id="Pt1-TR-an0">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="594" y="39"/>
+        </window>
     </objects>
     <resources>
         <image name="1" width="54" height="54"/>

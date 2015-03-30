@@ -6,24 +6,23 @@
 
 import Foundation
 import Cocoa
+import AppKit
 
 class IconView : NSView
 {
-    var image: NSImage
-    let item: NSStatusItem
-    
+    private(set) var image: NSImage
+    private var item: NSStatusItem
+  
     var onMouseDown: () -> ()
     
-    var isSelected: Bool
-        {
-        didSet
-        {
-            //redraw if isSelected changes for bg highlight
-            if (isSelected != oldValue)
-            {
-                self.needsDisplay = true
-            }
+    var isSelected: Bool {
+      didSet {
+        //redraw if isSelected changes for bg highlight
+        if (isSelected != oldValue) {
+          self.needsDisplay = true
+          println("is selected true")
         }
+      }
     }
     
     init(imageName: String, item: NSStatusItem)
@@ -32,6 +31,10 @@ class IconView : NSView
         self.item = item
         self.isSelected = false
         self.onMouseDown = {}
+
+      
+        item.menu?.delegate = MenuDelegate()
+
         
         let thickness = NSStatusBar.systemStatusBar().thickness
         let rect = CGRectMake(0, 0, thickness, thickness)
@@ -44,25 +47,24 @@ class IconView : NSView
     }
     
     
-    override func drawRect(dirtyRect: NSRect)
-    {
-        self.item.drawStatusBarBackgroundInRect(dirtyRect, withHighlight: self.isSelected)
-        
-        let size = self.image.size
-        let rect = CGRectMake(2, 2, size.width, size.height)
-        
-        self.image.drawInRect(rect)
-    }
+  override func drawRect(dirtyRect: NSRect) {
+    self.item.drawStatusBarBackgroundInRect(dirtyRect, withHighlight: self.isSelected)
     
-    override func mouseDown(theEvent: NSEvent)
-    {
-     //   println("Called mouse down")
-        self.isSelected = !self.isSelected;
-        self.onMouseDown();
+    let size = self.image.size
+    let rect = CGRectMake(2, 2, size.width, size.height)
+    
+    self.image.drawInRect(rect)
 
-    }
+  }
+  
+  override func acceptsFirstMouse(theEvent: NSEvent) -> Bool {
+    return true;
+  }
     
-    override func mouseUp(theEvent: NSEvent)
-    {
-    }
+  override func mouseDown(theEvent: NSEvent) {
+    self.isSelected = !self.isSelected;
+    self.onMouseDown();
+    println("Mouse down called")
+  }
+  
 }
