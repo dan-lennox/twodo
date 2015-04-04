@@ -250,8 +250,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
       //self.saveData()
     self.saveData()
     
-//    self.item1Text.becomeFirstResponder()
-    self.icon.isSelected = !self.icon.isSelected
+    self.icon.isSelected = false
     self.icon.needsDisplay = false
     self.popover?.close()
   }
