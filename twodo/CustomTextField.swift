@@ -14,6 +14,7 @@ class CustomTextField: NSTextField {
     let success: Bool = super.becomeFirstResponder();
     
     if(success) {
+      self.textColor = NSColor.whiteColor()
       // Strictly spoken, NSText (which currentEditor returns) doesn't
       // implement setInsertionPointColor:, but it's an NSTextView in practice.
       // But let's be paranoid, better show an invisible black-on-black cursor
@@ -35,13 +36,26 @@ class CustomTextField: NSTextField {
   }
   
   func addStrikethrough() {
-    let strikeThroughText: NSAttributedString = NSAttributedString(string: self.stringValue, attributes : [NSStrikethroughStyleAttributeName: NSUnderlineStyleSingle])
-    self.attributedStringValue = strikeThroughText
+    // Grab the current attributes of our string used by the NSTextField.
+    let attributes = NSMutableAttributedString(attributedString: self.attributedStringValue)
+    // Cast string to NSString so we can use length.
+    let string = self.stringValue as NSString
+    let range = NSRange(location: 0, length: string.length)
+    // Add the strikethrough attribute.
+    attributes.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyleSingle, range: range)
+    // Save back to the NSTextField.
+    self.attributedStringValue = attributes
   }
   
   func removeStrikethrough() {
-    let plainText: NSAttributedString = NSAttributedString(string: self.stringValue)
-    self.attributedStringValue  = plainText
+    // Grab the current attributes of our string used by the NSTextField.
+    let attributes = NSMutableAttributedString(attributedString: self.attributedStringValue)
+    // Cast string to NSString so we can use length.
+    let string = self.stringValue as NSString
+    let range = NSRange(location: 0, length: string.length)
+    // Remove the strikethrough attribute.
+    attributes.removeAttribute(NSStrikethroughStyleAttributeName, range: range)
+    // Save back to the NSTextField.
+    self.attributedStringValue = attributes
   }
-  
 }

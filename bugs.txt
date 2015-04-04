@@ -3,11 +3,19 @@ TODO:
 Release blockers.
 
 - Not ticking over to new day when app is still open overnight. (Testing tonight)
+   - Can reproduce. Need to make this work when app is open somehow.
 
 - Move popup a few pixels down like memory clean has.
 
 - Slightly difficult to reproduce app where the status item stays highlighted when
 the popover is hidden.
+         - Can reproduce!!!
+         - Have text wrangler open window.
+         - Click twodo menubar icon
+         - unclick menubar icon
+         - Click text wrangler window
+
+- Not deleting/clearing previous days tasks.
 
 - menubar attach/detach feature like memory clean has
 

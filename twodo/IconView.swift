@@ -31,10 +31,6 @@ class IconView : NSView
         self.item = item
         self.isSelected = false
         self.onMouseDown = {}
-
-      
-        item.menu?.delegate = MenuDelegate()
-
         
         let thickness = NSStatusBar.systemStatusBar().thickness
         let rect = CGRectMake(0, 0, thickness, thickness)
@@ -57,10 +53,6 @@ class IconView : NSView
 
   }
   
-  override func acceptsFirstMouse(theEvent: NSEvent) -> Bool {
-    return true;
-  }
-    
   override func mouseDown(theEvent: NSEvent) {
     self.isSelected = !self.isSelected;
     self.onMouseDown();

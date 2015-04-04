@@ -96,11 +96,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   }
   
   @IBAction func textChecked(sender: NSButton) {
-    var color = NSColor.whiteColor()
     
     if sender.state == 1 {
-      color = NSColor.redColor()
-      if (self.bothItemsTicked()) {
+      var empty = false
+      // Check to make sure the text field isn't empty.
+      // This code here is why you need to refactor, obviously not great.
+      if sender.identifier == "item1" {
+        let item1String = self.item1Text.stringValue as NSString
+        if (item1String.length == 0) {
+          empty = true
+          // Don't allow empty list items to be checked.
+          self.item1State.state = 0
+        }
+      }
+      else {
+        let item2String = self.item2Text.stringValue as NSString
+        if (item2String.length == 0) {
+          empty = true
+          // Don't allow empty list items to be checked.
+          self.item2State.state = 0
+        }
+      }
+      
+      if (self.bothItemsTicked() && !empty) {
         self.currentStreak.integerValue = self.currentStreak.integerValue + 1
       }
       self.updateStreak()
@@ -136,22 +154,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   
   override init()
   {
-      let bar = NSStatusBar.systemStatusBar();
-      let length: CGFloat = -1
-      let item = bar.statusItemWithLength(length);
-    
-      self.listState = State.NewDay
-      self.yesterdays_current_streak = 0
-      
-      self.icon = IconView(imageName: "icon", item: item);
-      item.view = icon;
+    let bar = NSStatusBar.systemStatusBar();
+    let length: CGFloat = -1
+    let item = bar.statusItemWithLength(length);
   
-    
-    
-    
-      super.init();
-    
-      self.initColors()
+    self.listState = State.NewDay
+    self.yesterdays_current_streak = 0
+  
+    self.icon = IconView(imageName: "icon", item: item);
+    item.view = icon;
+
+    super.init();
+    self.initColors()
   }
   
   func initColors() {
@@ -190,6 +204,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     
     self.updateStreak()
     self.updateUI() // The two calls to this are kind of crappy. Refactor.. 
+    
+    
+    
+    
     self.updateTextStatus()
     
     self.setState()
@@ -377,22 +395,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   }
   
   func updateTextStatus() {
+    self.item1Text.textColor = NSColor.whiteColor()
+    self.item2Text.textColor = NSColor.whiteColor()
+    
     if self.item1State.state == 1 {
       self.item1Box.fillColor = self.onColor
       self.item1Text.editable = false
-      self.item2Text.becomeFirstResponder()
+
+      if self.item2State.state == 0 {
+        self.item2Text.becomeFirstResponder()
+      }
       self.item1Text.addStrikethrough()
     }
     else {
-      self.item1Text.removeStrikethrough()
       self.item1Box.fillColor = self.offColor
       self.item1Text.editable = true
+      self.item1Text.removeStrikethrough()
     }
     
     if self.item2State.state == 1 {
       self.item2Box.fillColor = self.onColor
       self.item2Text.editable = false
-      self.item1Text.becomeFirstResponder()
+      if self.item1State.state == 0 {
+        self.item1Text.becomeFirstResponder()
+      }
       self.item2Text.addStrikethrough()
     }
     else {
