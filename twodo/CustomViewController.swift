@@ -9,9 +9,18 @@
 import Foundation
 
 class CustomViewController: NSViewController {
+
+  var onViewAppeared: () -> ()
+  
+  required init?(coder: NSCoder) {
+    self.onViewAppeared = {}
+    super.init(nibName: nil, bundle: nil)
+  }
+
   override func viewDidAppear() {
     super.viewDidAppear()
     println("view appeared")
+    self.onViewAppeared()
     //self.view.window?.becomeFirstResponder()
     //self.view.window?.makeKeyWindow()
   }

@@ -27,7 +27,12 @@ class IconView : NSView
     
     init(imageName: String, item: NSStatusItem)
     {
-        self.image = NSImage(named: imageName)!
+    //  let iconImage = NSImage(named: "icon")
+  //    iconImage?.setTemplate(true)
+//      item.image = iconImage
+        var templateImage = NSImage(named: imageName)!
+        templateImage.setTemplate(true)
+        self.image = templateImage
         self.item = item
         self.isSelected = false
         self.onMouseDown = {}

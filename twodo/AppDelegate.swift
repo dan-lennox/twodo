@@ -22,10 +22,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   
     @IBOutlet var popover : NSPopover!
   
-    @IBOutlet weak var PopUpViewController: NSViewController!
+    @IBOutlet weak var PopUpViewController: CustomViewController!
   
-    let icon: IconView;
-    
+    var item: NSStatusItem
+  
+    let icon: IconView
+  
+    var firstTimeActiveFlag: Bool
+  
     @IBOutlet weak var item1State: NSButton!
     @IBOutlet weak var item1Text: CustomTextField!
     @IBOutlet weak var item2State: NSButton!
@@ -154,19 +158,45 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   
   override init()
   {
+    
+    self.firstTimeActiveFlag = true
+    
     let bar = NSStatusBar.systemStatusBar();
     let length: CGFloat = -1
-    let item = bar.statusItemWithLength(length);
+    self.item = bar.statusItemWithLength(length);
+    
+    let iconImage = NSImage(named: "icon")
+    iconImage?.setTemplate(true)
+    self.item.image = iconImage
   
+    
+    self.item.button?.action = Selector("StatusItemClicked:")
+    //self.item.button?.setButtonType(NSButtonType.OnOffButton)
+    self.item.highlightMode = false
+    
     self.listState = State.NewDay
     self.yesterdays_current_streak = 0
   
     self.icon = IconView(imageName: "icon", item: item);
-    item.view = icon;
+    //item.view = icon;
 
     super.init();
     self.initColors()
   }
+  
+  
+  @IBAction func StatusItemClicked(sender: NSStatusBarButton) {
+    println("CALLED STATUS ITEM CLICKED")
+    if !(popover.shown) {
+      self.popover?.showRelativeToRect(sender.bounds, ofView: self.item.button!, preferredEdge: NSMinYEdge)
+      self.currentApp.activateIgnoringOtherApps(true)
+    }
+    else {
+      self.popover?.close()
+      self.currentApp.hide(self)
+    }
+  }
+  
   
   func initColors() {
     let rFloat: CGFloat = 0.0/255.0
@@ -214,7 +244,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     
     self.item1Text.highlighted = false
     
-
+    println("did launch")
     
   }
   
@@ -241,6 +271,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
       //self.updateUI()
     //self.popover?.open()
     println("became active")
+    
+//    let popupViewC = self.PopUpViewController
+//    //var button = self.item.button! as NSStatusBarButton
+//    
+//    popupViewC.onViewAppeared = {
+//      //button.highlight(true)
+//      println("view appeared from delegate")
+//      self.item.button!.highlight(true)
+//    }
+    self.item.highlightMode = true
+    self.item.button?.highlight(true)
+
   }
   
   func applicationDidResignActive(notification: NSNotification) {
@@ -252,6 +294,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     
     self.icon.isSelected = false
     self.icon.needsDisplay = false
+    
+    self.item.button?.highlight(false)
+    self.item.highlightMode = false
+    
     self.popover?.close()
   }
 
@@ -482,6 +528,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     let edge = NSMinYEdge
     let icon = self.icon
     var rect = icon.frame
+
+    
     
     println("awake")
     icon.onMouseDown = {
@@ -490,8 +538,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
         println("IS SELECTED")
 
         
-        
-        self.popover?.showRelativeToRect(rect, ofView: icon, preferredEdge: edge);
+        //self.popover?.showRelativeToRect(rect, ofView: icon, preferredEdge: edge);
         
         self.PopUpViewController.view.needsDisplay = true
         

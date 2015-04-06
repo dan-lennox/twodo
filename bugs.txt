@@ -14,7 +14,9 @@ Release blockers.
 - Write app description / sales pitch.
 - TESTING (write actual swift unit tests for fun?)
 
-Testing for fresh installs (empty data)
+- Testing for fresh installs (empty data)
+
+- Fix dark mode app styles.
 
 Create icon
 

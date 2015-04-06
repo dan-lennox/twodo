@@ -20,6 +20,7 @@
 		3775FE1F1A6CA7E4001F807E /* twodo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3775FE1D1A6CA7E4001F807E /* twodo.xcdatamodeld */; };
 		37E62CFA1ABBF25900119458 /* CustomButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E62CF91ABBF25900119458 /* CustomButtonCell.swift */; };
 		37E62CFE1ABFA40900119458 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E62CFD1ABFA40900119458 /* CustomViewController.swift */; };
+		37F4511D1AD26EEC000EE834 /* CustomStatusBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F4511C1AD26EEC000EE834 /* CustomStatusBarButton.swift */; };
 		37FCD1641A69F0F900A6FDB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FCD1631A69F0F900A6FDB2 /* AppDelegate.swift */; };
 		37FCD1661A69F0F900A6FDB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37FCD1651A69F0F900A6FDB2 /* Images.xcassets */; };
 		37FCD1751A69F0F900A6FDB2 /* twodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FCD1741A69F0F900A6FDB2 /* twodoTests.swift */; };
@@ -52,6 +53,7 @@
 		3775FE1E1A6CA7E4001F807E /* twodo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = twodo.xcdatamodel; sourceTree = "<group>"; };
 		37E62CF91ABBF25900119458 /* CustomButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtonCell.swift; sourceTree = "<group>"; };
 		37E62CFD1ABFA40900119458 /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
+		37F4511C1AD26EEC000EE834 /* CustomStatusBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomStatusBarButton.swift; sourceTree = "<group>"; };
 		37FCD15E1A69F0F900A6FDB2 /* twodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37FCD1621A69F0F900A6FDB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		37FCD1631A69F0F900A6FDB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				373F5FAA1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m */,
 				3775FE111A6C8F5F001F807E /* Resources */,
 				37FCD1631A69F0F900A6FDB2 /* AppDelegate.swift */,
+				37F4511C1AD26EEC000EE834 /* CustomStatusBarButton.swift */,
 				373F5FAC1A9AAF9600E884AB /* twodo-Bridging-Header.h */,
 				37FCD1651A69F0F900A6FDB2 /* Images.xcassets */,
 				3775FE181A6C8FE3001F807E /* MainMenu.xib */,
@@ -263,6 +266,7 @@
 				37FCD1641A69F0F900A6FDB2 /* AppDelegate.swift in Sources */,
 				3775FE1C1A6CA419001F807E /* canBecomeKeyWindow.m in Sources */,
 				374EBD261A9DEDA4007B8BB7 /* CustomTextField.swift in Sources */,
+				37F4511D1AD26EEC000EE834 /* CustomStatusBarButton.swift in Sources */,
 				3775FE0E1A6C8E04001F807E /* IconView.swift in Sources */,
 				373F5FAB1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				3775FE1F1A6CA7E4001F807E /* twodo.xcdatamodeld in Sources */,
