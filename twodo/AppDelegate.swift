@@ -268,21 +268,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   }
     
   func applicationDidBecomeActive(notification: NSNotification) {
-      //self.updateUI()
-    //self.popover?.open()
     println("became active")
-    
-//    let popupViewC = self.PopUpViewController
-//    //var button = self.item.button! as NSStatusBarButton
-//    
-//    popupViewC.onViewAppeared = {
-//      //button.highlight(true)
-//      println("view appeared from delegate")
-//      self.item.button!.highlight(true)
-//    }
-    self.item.highlightMode = true
-    self.item.button?.highlight(true)
 
+    // Make the app resign active on the first time?
+    if (self.firstTimeActiveFlag == true) {
+      self.currentApp.hide(self.currentApp)
+      self.firstTimeActiveFlag = false
+    }
+    else {
+      self.item.highlightMode = true
+      self.item.button?.highlight(true)
+    }
   }
   
   func applicationDidResignActive(notification: NSNotification) {
