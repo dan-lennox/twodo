@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import Cocoa
+import CoreData
+import AppKit
 
 class CustomTextField: NSTextField {
   

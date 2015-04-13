@@ -7,6 +7,10 @@
 //
 
 import Foundation
+import Cocoa
+import CoreData
+import AppKit
+
 
 class CustomViewController: NSViewController {
 

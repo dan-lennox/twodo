@@ -21,16 +21,14 @@ Release blockers.
 
 - ensure the storage area in application support folder doesn't have weird name like danlennox.twodo
 
+- General code cleanup.
+
 - Submit to app store.
+
+- Slight discolouring of arrow.
 
 - Finalise messages
   
-
-
-
-
-
-
 
 ----------------------------------------------------------------------------------------
 

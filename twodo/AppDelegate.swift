@@ -16,16 +16,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   //  @IBOutlet var window: NSWindow!
   
   @IBOutlet weak var currentApp: NSApplication!
-
   @IBOutlet weak var detachWindow: NSWindow!
-
   @IBOutlet var popover : NSPopover!
-
   @IBOutlet weak var PopUpViewController: CustomViewController!
 
   var item: NSStatusItem
-
-  let icon: IconView
 
   var firstTimeActiveFlag: Bool
 
@@ -36,14 +31,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   @IBOutlet weak var item1Box: NSBox!
   @IBOutlet weak var item2Box: NSBox!
 
-
   @IBOutlet weak var currentStreak: NSTextField!
   @IBOutlet weak var longestStreak: NSTextField!
 
-  // Todo: new "list item" class that extents 
-  // NSManagedObject - Can then extend with setAppearanceTicked, setAppearanceUnticked etc.
-  // Check how this all fits in with writing solid MVC apps though, might be the wrong way
-  // to do this.
   var listItem1: NSManagedObject!
   var listItem2: NSManagedObject!
   var streakRecorder: NSManagedObject!
@@ -54,23 +44,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
 
   @IBOutlet weak var heading: NSTextField!
   
-  enum State {
-    case recordAlmostMatched
-    case RecordMatched
-    case RecordBeaten
-    case NewDay
-    case NewDay5Plus
-    case OneTicked
-    case TwoTicked
-  }
-  
   var stateMessenger: StateMessenger
   
 
   @IBOutlet weak var messageBox: NSBox!
   @IBOutlet weak var message: NSTextField!
-  
-  var listState: State
   
   var yesterdays_current_streak: Int
 
@@ -98,15 +76,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     
     self.streakRecorder.setValue(NSDate(), forKey: "last_use");
     
-    println("Data saved")
-    
     if !managedContext.save(&error) {
       println("Could not save \(error), \(error?.userInfo)")
     }
   }
   
   @IBAction func textChecked(sender: NSButton) {
-    
     if sender.state == 1 {
       var empty = false
       // Check to make sure the text field isn't empty.
@@ -163,9 +138,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     self.updateMessage()
   }
   
-  override init()
-  {
-    
+  override init() {
     self.firstTimeActiveFlag = true
     
     let bar = NSStatusBar.systemStatusBar();
@@ -175,29 +148,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     let iconImage = NSImage(named: "icon")
     iconImage?.setTemplate(true)
     self.item.image = iconImage
-  
     
     self.item.button?.action = Selector("StatusItemClicked:")
-    //self.item.button?.setButtonType(NSButtonType.OnOffButton)
-    self.item.highlightMode = false
-    
-    self.listState = State.NewDay
     self.yesterdays_current_streak = 0
-  
-    self.icon = IconView(imageName: "icon", item: item);
-    //item.view = icon;
     
     self.stateMessenger = StateMessenger()
     
-
-
     super.init();
     self.initColors()
   }
   
-  
   @IBAction func StatusItemClicked(sender: NSStatusBarButton) {
-    println("CALLED STATUS ITEM CLICKED")
     if !(popover.shown) {
       self.popover?.showRelativeToRect(sender.bounds, ofView: self.item.button!, preferredEdge: NSMinYEdge)
       self.currentApp.activateIgnoringOtherApps(true)
@@ -207,7 +168,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
       self.currentApp.hide(self)
     }
   }
-  
   
   func initColors() {
     var rFloat: CGFloat = 0.0/255.0
@@ -219,12 +179,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     let grey: CGFloat = 41.0/255.0
     
     self.offColor = NSColor(red: grey, green: grey, blue: grey, alpha: 1.0)
-    
-    rFloat = 255.0/255.0
-    gFloat = 142.0/255.0
-    bFloat = 136.0/255.0
-    
-    self.undoneColor = NSColor(red: rFloat, green: gFloat, blue: bFloat, alpha: 1.0)
   }
   
   func applicationWillFinishLaunching(notification: NSNotification) {
@@ -248,25 +202,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     
     
     self.updateStreak()
-    self.updateUI() // The two calls to this are kind of crappy. Refactor.. 
-    
-    
-    
-    
+    self.updateUI() // The two calls to this are kind of crappy. Refactor...
     self.updateTextStatus()
-    
-    self.setState()
-    
-    self.item1Text.highlighted = false
-    
-    println("did launch")
-    
     self.updateMessage()
     
   }
   
   func updateMessage() {
-    
     self.stateMessenger.updateState(self.currentStreak.integerValue, record: self.longestStreak.integerValue, status1: self.item1State.state, status2: self.item2State.state)
     
     var message = self.stateMessenger.getMessage()
@@ -282,41 +224,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   func detachableWindowForPopover(popover: NSPopover) -> NSWindow? {
     return detachWindow
   }
-  
-  
-  func setState() {
-    // No inputs (update style function).
-    // Simply looks at the few vars and sets the state based on criteria.
-    
-    // Sets some application state based on the arrangement of items.
-    
-    // Messages are then displayed based on state.
-  }
     
   func applicationDidBecomeActive(notification: NSNotification) {
-    println("became active")
-
-    // Make the app resign active on the first time?
+    // Make the app resign active on the first time.
+    // This is to stop the menubar highlighting before it's clicked.
     if (self.firstTimeActiveFlag == true) {
       self.currentApp.hide(self.currentApp)
       self.firstTimeActiveFlag = false
     }
     else {
+      // Highlight the menubar Icon.
       self.item.highlightMode = true
       self.item.button?.highlight(true)
     }
   }
   
   func applicationDidResignActive(notification: NSNotification) {
-    println("resigned active")
     // Save our data when the user clicks out of the app.
     self.updateStreak()
-      //self.saveData()
+    //self.saveData()
     self.saveData()
-    
-    self.icon.isSelected = false
-    self.icon.needsDisplay = false
-    
+    // Unhighlight the menubar icon
     self.item.button?.highlight(false)
     self.item.highlightMode = false
     
@@ -325,9 +253,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
 
   
   func updateStreak() {
-    
     if (self.bothItemsTicked()) {
-      
       // Lets only save the streak data if it's a new day.
       if self.isNewDay() {
         self.streakRecorder.setValue(self.currentStreak.integerValue, forKey: "current")
@@ -385,15 +311,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     return ticked
   }
   
-    
   func clearLists() {
     self.listItem1.setValue("", forKey: "text")
     self.listItem1.setValue(0, forKey: "state")
     self.listItem2.setValue("", forKey: "text")
     self.listItem2.setValue(0, forKey: "state")
   }
-    
-    
+  
   func loadListItems() {
     let managedContext = self.managedObjectContext!
     let fetchRequest = NSFetchRequest(entityName:"ListItem")
@@ -427,21 +351,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
         
         var error: NSError?
         if !managedContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+          println("Could not save \(error), \(error?.userInfo)")
         }
       }
       else {
-          for result in results {
-              var index = result.valueForKey("index") as Int
-              switch index {
-              case 1:
-                  self.listItem1 = result
-              case 2:
-                  self.listItem2 = result
-              default:
-                  println("wrong index")
-              }
+        for result in results {
+          var index = result.valueForKey("index") as Int
+          switch index {
+          case 1:
+            self.listItem1 = result
+          case 2:
+            self.listItem2 = result
+          default:
+            println("wrong index")
           }
+        }
       }
     } else {
       println("Could not fetch \(error), \(error!.userInfo)")
@@ -454,12 +378,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     
     self.item2Text.stringValue = self.listItem2.valueForKey("text") as String
     self.item2State.state = self.listItem2.valueForKey("state") as Int
-
-    
-    
-    
-    //self.currentStreak.integerValue = self.streakRecorder.valueForKey("current") as Int
-    //self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
   }
   
   func updateTextStatus() {
@@ -538,195 +456,146 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     }
   }
     
-  func applicationWillTerminate(aNotification: NSNotification?)
-  {
-    // Insert code here to tear down your application
-    // This is only called when the user actually quits.
-    println("tear down")
+  func applicationWillTerminate(aNotification: NSNotification?) {
     self.saveData()
   }
   
-  override func awakeFromNib()
-  {
-    let edge = NSMinYEdge
-    let icon = self.icon
-    var rect = icon.frame
+  // MARK: - Core Data stack
 
-    
-    
-    println("awake")
-    icon.onMouseDown = {
-      println("CALLED MOUSE DOWWWWN")
-      if (icon.isSelected) {
-        println("IS SELECTED")
+  lazy var applicationDocumentsDirectory: NSURL = {
+    // The directory the application uses to store the Core Data store file. This code uses a directory named "danlennox.twodo" in the user's Application Support directory.
+    let urls = NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)
+    let appSupportURL = urls[urls.count - 1] as NSURL
+    return appSupportURL.URLByAppendingPathComponent("danlennox.twodo")
+  }()
 
-        
-        //self.popover?.showRelativeToRect(rect, ofView: icon, preferredEdge: edge);
-        
-        self.PopUpViewController.view.needsDisplay = true
-        
-        self.currentApp.activateIgnoringOtherApps(true)
-        
-        self.item1Text.becomeFirstResponder()
-//        PopUpViewController.
-     
+  lazy var managedObjectModel: NSManagedObjectModel = {
+    // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+    let modelURL = NSBundle.mainBundle().URLForResource("twodo", withExtension: "momd")!
+    return NSManagedObjectModel(contentsOfURL: modelURL)!
+  }()
+  
+  lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+      // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.) This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
+      let fileManager = NSFileManager.defaultManager()
+      var shouldFail = false
+      var error: NSError? = nil
+      var failureReason = "There was an error creating or loading the application's saved data."
+      
+      // Make sure the application files directory is there
+      let propertiesOpt = self.applicationDocumentsDirectory.resourceValuesForKeys([NSURLIsDirectoryKey], error: &error)
+      if let properties = propertiesOpt {
+          if !properties[NSURLIsDirectoryKey]!.boolValue {
+              failureReason = "Expected a folder to store application data, found a file \(self.applicationDocumentsDirectory.path)."
+              shouldFail = true
+          }
+      } else if error!.code == NSFileReadNoSuchFileError {
+          error = nil
+          fileManager.createDirectoryAtPath(self.applicationDocumentsDirectory.path!, withIntermediateDirectories: true, attributes: nil, error: &error)
       }
-      else {
-        self.popover?.close()
+      
+      // Create the coordinator and store
+      var coordinator: NSPersistentStoreCoordinator?
+      if !shouldFail && (error == nil) {
+          coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+          let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("twodo.storedata")
+          if coordinator!.addPersistentStoreWithType(NSXMLStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+              coordinator = nil
+          }
       }
+      
+      if shouldFail || (error != nil) {
+          // Report any error we got.
+          let dict = NSMutableDictionary()
+          dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+          dict[NSLocalizedFailureReasonErrorKey] = failureReason
+          if error != nil {
+              dict[NSUnderlyingErrorKey] = error
+          }
+          error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+          NSApplication.sharedApplication().presentError(error!)
+          return nil
+      } else {
+          return coordinator
+      }
+      }()
+  
+  lazy var managedObjectContext: NSManagedObjectContext? = {
+      // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
+      let coordinator = self.persistentStoreCoordinator
+      if coordinator == nil {
+          return nil
+      }
+      var managedObjectContext = NSManagedObjectContext()
+      managedObjectContext.persistentStoreCoordinator = coordinator
+      return managedObjectContext
+      }()
+  
+  // MARK: - Core Data Saving and Undo support
+  
+  @IBAction func saveAction(sender: AnyObject!) {
+      // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
+      if let moc = self.managedObjectContext {
+          if !moc.commitEditing() {
+              NSLog("\(NSStringFromClass(self.dynamicType)) unable to commit editing before saving")
+          }
+          var error: NSError? = nil
+          if moc.hasChanges && !moc.save(&error) {
+              NSApplication.sharedApplication().presentError(error!)
+          }
+      }
+  }
 
-    }
+  func windowWillReturnUndoManager(window: NSWindow) -> NSUndoManager? {
+      // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
+      if let moc = self.managedObjectContext {
+          return moc.undoManager
+      } else {
+          return nil
+      }
   }
   
-  
-  
-    // MARK: - Core Data stack
-  
-    lazy var applicationDocumentsDirectory: NSURL = {
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "danlennox.twodo" in the user's Application Support directory.
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)
-        let appSupportURL = urls[urls.count - 1] as NSURL
-        return appSupportURL.URLByAppendingPathComponent("danlennox.twodo")
-        }()
-    
-    lazy var managedObjectModel: NSManagedObjectModel = {
-        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("twodo", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
-        }()
-    
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
-        // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.) This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
-        let fileManager = NSFileManager.defaultManager()
-        var shouldFail = false
-        var error: NSError? = nil
-        var failureReason = "There was an error creating or loading the application's saved data."
-        
-        // Make sure the application files directory is there
-        let propertiesOpt = self.applicationDocumentsDirectory.resourceValuesForKeys([NSURLIsDirectoryKey], error: &error)
-        if let properties = propertiesOpt {
-            if !properties[NSURLIsDirectoryKey]!.boolValue {
-                failureReason = "Expected a folder to store application data, found a file \(self.applicationDocumentsDirectory.path)."
-                shouldFail = true
-            }
-        } else if error!.code == NSFileReadNoSuchFileError {
-            error = nil
-            fileManager.createDirectoryAtPath(self.applicationDocumentsDirectory.path!, withIntermediateDirectories: true, attributes: nil, error: &error)
-        }
-        
-        // Create the coordinator and store
-        var coordinator: NSPersistentStoreCoordinator?
-        if !shouldFail && (error == nil) {
-            coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-            let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("twodo.storedata")
-            if coordinator!.addPersistentStoreWithType(NSXMLStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
-                coordinator = nil
-            }
-        }
-        
-        if shouldFail || (error != nil) {
-            // Report any error we got.
-            let dict = NSMutableDictionary()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
-            if error != nil {
-                dict[NSUnderlyingErrorKey] = error
-            }
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-            NSApplication.sharedApplication().presentError(error!)
-            return nil
-        } else {
-            return coordinator
-        }
-        }()
-    
-    lazy var managedObjectContext: NSManagedObjectContext? = {
-        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
-        let coordinator = self.persistentStoreCoordinator
-        if coordinator == nil {
-            return nil
-        }
-        var managedObjectContext = NSManagedObjectContext()
-        managedObjectContext.persistentStoreCoordinator = coordinator
-        return managedObjectContext
-        }()
-    
-    // MARK: - Core Data Saving and Undo support
-    
-    @IBAction func saveAction(sender: AnyObject!) {
-        // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
-        if let moc = self.managedObjectContext {
-            if !moc.commitEditing() {
-                NSLog("\(NSStringFromClass(self.dynamicType)) unable to commit editing before saving")
-            }
-            var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                NSApplication.sharedApplication().presentError(error!)
-            }
-        }
-    }
-  
-    func windowWillReturnUndoManager(window: NSWindow) -> NSUndoManager? {
-        // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
-        if let moc = self.managedObjectContext {
-            return moc.undoManager
-        } else {
-            return nil
-        }
-    }
-    
-    func applicationShouldTerminate(sender: NSApplication) -> NSApplicationTerminateReply {
-        // Save changes in the application's managed object context before the application terminates.
-        
-        if let moc = managedObjectContext {
-            if !moc.commitEditing() {
-                NSLog("\(NSStringFromClass(self.dynamicType)) unable to commit editing to terminate")
-                return .TerminateCancel
-            }
-            
-            if !moc.hasChanges {
-                return .TerminateNow
-            }
-            
-            var error: NSError? = nil
-            if !moc.save(&error) {
-                // Customize this code block to include application-specific recovery steps.
-                let result = sender.presentError(error!)
-                if (result) {
-                    return .TerminateCancel
-                }
-                
-                let question = NSLocalizedString("Could not save changes while quitting. Quit anyway?", comment: "Quit without saves error question message")
-                let info = NSLocalizedString("Quitting now will lose any changes you have made since the last successful save", comment: "Quit without saves error question info");
-                let quitButton = NSLocalizedString("Quit anyway", comment: "Quit anyway button title")
-                let cancelButton = NSLocalizedString("Cancel", comment: "Cancel button title")
-                let alert = NSAlert()
-                alert.messageText = question
-                alert.informativeText = info
-                alert.addButtonWithTitle(quitButton)
-                alert.addButtonWithTitle(cancelButton)
-                
-                let answer = alert.runModal()
-                if answer == NSAlertFirstButtonReturn {
-                    return .TerminateCancel
-                }
-            }
-        }
-        // If we got here, it is time to quit.
-        return .TerminateNow
-    }
-
-  
-    
-}
-
-
-class MenuDelegate: NSObject, NSMenuDelegate {
-  func menuWillOpen(menu: NSMenu) {
-      println("menu delegate working")
+  func applicationShouldTerminate(sender: NSApplication) -> NSApplicationTerminateReply {
+      // Save changes in the application's managed object context before the application terminates.
+      
+      if let moc = managedObjectContext {
+          if !moc.commitEditing() {
+              NSLog("\(NSStringFromClass(self.dynamicType)) unable to commit editing to terminate")
+              return .TerminateCancel
+          }
+          
+          if !moc.hasChanges {
+              return .TerminateNow
+          }
+          
+          var error: NSError? = nil
+          if !moc.save(&error) {
+              // Customize this code block to include application-specific recovery steps.
+              let result = sender.presentError(error!)
+              if (result) {
+                  return .TerminateCancel
+              }
+              
+              let question = NSLocalizedString("Could not save changes while quitting. Quit anyway?", comment: "Quit without saves error question message")
+              let info = NSLocalizedString("Quitting now will lose any changes you have made since the last successful save", comment: "Quit without saves error question info");
+              let quitButton = NSLocalizedString("Quit anyway", comment: "Quit anyway button title")
+              let cancelButton = NSLocalizedString("Cancel", comment: "Cancel button title")
+              let alert = NSAlert()
+              alert.messageText = question
+              alert.informativeText = info
+              alert.addButtonWithTitle(quitButton)
+              alert.addButtonWithTitle(cancelButton)
+              
+              let answer = alert.runModal()
+              if answer == NSAlertFirstButtonReturn {
+                  return .TerminateCancel
+              }
+          }
+      }
+      // If we got here, it is time to quit.
+      return .TerminateNow
   }
 }
-
 
 
 

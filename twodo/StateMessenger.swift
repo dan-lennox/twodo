@@ -11,8 +11,6 @@ import Cocoa
 import CoreData
 import AppKit
 
-
-
 class StateMessenger {
 
   enum MessengerState {
@@ -20,13 +18,10 @@ class StateMessenger {
     case oneItemLeft
     case firstStreak
   }
-  
   var currentState: MessengerState
-
   var messages: [MessengerState: String]
   
   var currentColor: NSColor
-  
   var onColor: NSColor
   var offColor: NSColor
 
@@ -54,9 +49,6 @@ class StateMessenger {
   
 
   func updateState(streak: Int, record: Int, status1: Int, status2: Int) -> () {
-    
-    println("STREAK")
-    println(streak)
     
     self.currentState = .firstUse
     var oneTicked = false
