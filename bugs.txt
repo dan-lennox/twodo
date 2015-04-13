@@ -12,24 +12,19 @@ Release blockers.
 - menubar attach/detach feature like memory clean has
 
 - Write app description / sales pitch.
+
 - TESTING (write actual swift unit tests for fun?)
 
 - Testing for fresh installs (empty data)
 
 - Fix dark mode app styles.
 
-Create icon
-
 - ensure the storage area in application support folder doesn't have weird name like danlennox.twodo
 
 - Submit to app store.
 
-- Implement messenger status box
-  - New record!
-  - +5 - do you really want to go back to 0?
-  - 
-
-
+- Finalise messages
+  
 
 
 

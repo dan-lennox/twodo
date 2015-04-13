@@ -15,54 +15,60 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
 {
   //  @IBOutlet var window: NSWindow!
   
+  @IBOutlet weak var currentApp: NSApplication!
+
+  @IBOutlet weak var detachWindow: NSWindow!
+
+  @IBOutlet var popover : NSPopover!
+
+  @IBOutlet weak var PopUpViewController: CustomViewController!
+
+  var item: NSStatusItem
+
+  let icon: IconView
+
+  var firstTimeActiveFlag: Bool
+
+  @IBOutlet weak var item1State: NSButton!
+  @IBOutlet weak var item1Text: CustomTextField!
+  @IBOutlet weak var item2State: NSButton!
+  @IBOutlet weak var item2Text: CustomTextField!
+  @IBOutlet weak var item1Box: NSBox!
+  @IBOutlet weak var item2Box: NSBox!
+
+
+  @IBOutlet weak var currentStreak: NSTextField!
+  @IBOutlet weak var longestStreak: NSTextField!
+
+  // Todo: new "list item" class that extents 
+  // NSManagedObject - Can then extend with setAppearanceTicked, setAppearanceUnticked etc.
+  // Check how this all fits in with writing solid MVC apps though, might be the wrong way
+  // to do this.
+  var listItem1: NSManagedObject!
+  var listItem2: NSManagedObject!
+  var streakRecorder: NSManagedObject!
+
+  var onColor: NSColor!
+  var offColor: NSColor!
+  var undoneColor: NSColor!
+
+  @IBOutlet weak var heading: NSTextField!
   
-    @IBOutlet weak var currentApp: NSApplication!
+  enum State {
+    case recordAlmostMatched
+    case RecordMatched
+    case RecordBeaten
+    case NewDay
+    case NewDay5Plus
+    case OneTicked
+    case TwoTicked
+  }
   
-    @IBOutlet weak var detachWindow: NSWindow!
+  var stateMessenger: StateMessenger
   
-    @IBOutlet var popover : NSPopover!
-  
-    @IBOutlet weak var PopUpViewController: CustomViewController!
-  
-    var item: NSStatusItem
-  
-    let icon: IconView
-  
-    var firstTimeActiveFlag: Bool
-  
-    @IBOutlet weak var item1State: NSButton!
-    @IBOutlet weak var item1Text: CustomTextField!
-    @IBOutlet weak var item2State: NSButton!
-    @IBOutlet weak var item2Text: CustomTextField!
-    @IBOutlet weak var item1Box: NSBox!
-    @IBOutlet weak var item2Box: NSBox!
-  
-  
-    @IBOutlet weak var currentStreak: NSTextField!
-    @IBOutlet weak var longestStreak: NSTextField!
-  
-    // Todo: new "list item" class that extents 
-    // NSManagedObject - Can then extend with setAppearanceTicked, setAppearanceUnticked etc.
-    // Check how this all fits in with writing solid MVC apps though, might be the wrong way
-    // to do this.
-    var listItem1: NSManagedObject!
-    var listItem2: NSManagedObject!
-    var streakRecorder: NSManagedObject!
-  
-    var onColor: NSColor!
-    var offColor: NSColor!
-  
-    @IBOutlet weak var heading: NSTextField!
-    
-    enum State {
-      case recordAlmostMatched
-      case RecordMatched
-      case RecordBeaten
-      case NewDay
-      case NewDay5Plus
-      case OneTicked
-      case TwoTicked
-    }
+
+  @IBOutlet weak var messageBox: NSBox!
+  @IBOutlet weak var message: NSTextField!
   
   var listState: State
   
@@ -154,6 +160,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
       
     }
     self.updateTextStatus()
+    self.updateMessage()
   }
   
   override init()
@@ -179,6 +186,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   
     self.icon = IconView(imageName: "icon", item: item);
     //item.view = icon;
+    
+    self.stateMessenger = StateMessenger()
+    
+
 
     super.init();
     self.initColors()
@@ -199,15 +210,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   
   
   func initColors() {
-    let rFloat: CGFloat = 0.0/255.0
-    let gFloat: CGFloat = 189.0/255.0
-    let bFloat: CGFloat = 146.0/255.0
+    var rFloat: CGFloat = 0.0/255.0
+    var gFloat: CGFloat = 189.0/255.0
+    var bFloat: CGFloat = 146.0/255.0
     
     self.onColor = NSColor(red: rFloat, green: gFloat, blue: bFloat, alpha: 1.0)
     
     let grey: CGFloat = 41.0/255.0
     
     self.offColor = NSColor(red: grey, green: grey, blue: grey, alpha: 1.0)
+    
+    rFloat = 255.0/255.0
+    gFloat = 142.0/255.0
+    bFloat = 136.0/255.0
+    
+    self.undoneColor = NSColor(red: rFloat, green: gFloat, blue: bFloat, alpha: 1.0)
   }
   
   func applicationWillFinishLaunching(notification: NSNotification) {
@@ -220,8 +237,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     // Insert code here to initialize your application
     self.loadListItems()
     self.loadStreakRecorder()
-    
-    
     
     self.updateUI()
     
@@ -246,6 +261,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     
     println("did launch")
     
+    self.updateMessage()
+    
+  }
+  
+  func updateMessage() {
+    
+    self.stateMessenger.updateState(self.currentStreak.integerValue, record: self.longestStreak.integerValue, status1: self.item1State.state, status2: self.item2State.state)
+    
+    var message = self.stateMessenger.getMessage()
+    self.messageBox.fillColor = message.color
+    self.message.stringValue = message.message
   }
   
   func popoverShouldClose(popover: NSPopover) -> Bool {
@@ -429,6 +455,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     self.item2Text.stringValue = self.listItem2.valueForKey("text") as String
     self.item2State.state = self.listItem2.valueForKey("state") as Int
 
+    
     
     
     //self.currentStreak.integerValue = self.streakRecorder.valueForKey("current") as Int
