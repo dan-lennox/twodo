@@ -18,7 +18,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   @IBOutlet weak var currentApp: NSApplication!
   @IBOutlet weak var detachWindow: NSWindow!
   @IBOutlet var popover : NSPopover!
-  @IBOutlet weak var PopUpViewController: CustomViewController!
 
   var item: NSStatusItem
 
@@ -205,7 +204,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     self.updateUI() // The two calls to this are kind of crappy. Refactor...
     self.updateTextStatus()
     self.updateMessage()
-    
   }
   
   func updateMessage() {

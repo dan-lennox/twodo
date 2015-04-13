@@ -693,7 +693,7 @@
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="lFq-B5-y8t"/>
             </connections>
         </popover>
-        <customView id="OBP-pT-3rU">
+        <customView appearanceType="aqua" id="OBP-pT-3rU">
             <rect key="frame" x="0.0" y="0.0" width="347" height="300"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
