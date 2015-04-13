@@ -27,6 +27,8 @@
                 <outlet property="item2State" destination="hAA-Mf-V5s" id="piR-0L-pmE"/>
                 <outlet property="item2Text" destination="J55-Pq-CoE" id="iTM-ig-tUP"/>
                 <outlet property="longestStreak" destination="Ajt-Va-cmT" id="Skq-Ku-mWP"/>
+                <outlet property="message" destination="vuj-Dg-pW5" id="AAp-TO-tIq"/>
+                <outlet property="messageBox" destination="sZZ-fL-5py" id="T7c-L2-zRu"/>
                 <outlet property="popover" destination="79J-8G-uar" id="csQ-r6-VX8"/>
             </connections>
         </customObject>
@@ -700,7 +702,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="bg" id="9eA-zn-dKX"/>
                 </imageView>
                 <textField identifier="current" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AKJ-Ij-Iqk">
-                    <rect key="frame" x="17" y="38" width="125" height="56"/>
+                    <rect key="frame" x="17" y="35" width="125" height="56"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0" placeholderString="" drawsBackground="YES" id="NiM-fn-3lf">
                         <font key="font" size="48" name="Helvetica"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -832,6 +834,25 @@
                         <action selector="textChecked:" target="Voe-Tx-rLC" id="Axi-OV-aaL"/>
                     </connections>
                 </button>
+                <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="none" translatesAutoresizingMaskIntoConstraints="NO" id="sZZ-fL-5py">
+                    <rect key="frame" x="0.0" y="119" width="347" height="25"/>
+                    <view key="contentView">
+                        <rect key="frame" x="0.0" y="0.0" width="347" height="25"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vuj-Dg-pW5">
+                                <rect key="frame" x="0.0" y="4" width="347" height="18"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="center" id="Jvw-5H-bou">
+                                    <font key="font" size="14" name="Helvetica"/>
+                                    <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="1" green="0.5568627451" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" red="1" green="0.5568627451" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                </box>
             </subviews>
             <point key="canvasLocation" x="529.5" y="440"/>
         </customView>

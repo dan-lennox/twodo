@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37125C6A1ADB446A0017E56E /* StateMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37125C691ADB446A0017E56E /* StateMessenger.swift */; };
 		373F5FAB1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 373F5FAA1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m */; };
 		374EBD261A9DEDA4007B8BB7 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EBD251A9DEDA4007B8BB7 /* CustomTextField.swift */; };
 		3765DDA41A885FA200D532A9 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA31A885FA200D532A9 /* bg.png */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37125C691ADB446A0017E56E /* StateMessenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMessenger.swift; sourceTree = "<group>"; };
 		373F5FA91A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSVerticallyCenteredTextFieldCell.h; path = RSVerticallyCenteredTextFieldCell/RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
 		373F5FAA1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSVerticallyCenteredTextFieldCell.m; path = RSVerticallyCenteredTextFieldCell/RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
 		373F5FAC1A9AAF9600E884AB /* twodo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "twodo-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				373F5FAA1A9AAEC300E884AB /* RSVerticallyCenteredTextFieldCell.m */,
 				3775FE111A6C8F5F001F807E /* Resources */,
 				37FCD1631A69F0F900A6FDB2 /* AppDelegate.swift */,
+				37125C691ADB446A0017E56E /* StateMessenger.swift */,
 				37F4511C1AD26EEC000EE834 /* CustomStatusBarButton.swift */,
 				373F5FAC1A9AAF9600E884AB /* twodo-Bridging-Header.h */,
 				37FCD1651A69F0F900A6FDB2 /* Images.xcassets */,
@@ -272,6 +275,7 @@
 				3775FE1F1A6CA7E4001F807E /* twodo.xcdatamodeld in Sources */,
 				37E62CFA1ABBF25900119458 /* CustomButtonCell.swift in Sources */,
 				37E62CFE1ABFA40900119458 /* CustomViewController.swift in Sources */,
+				37125C6A1ADB446A0017E56E /* StateMessenger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
