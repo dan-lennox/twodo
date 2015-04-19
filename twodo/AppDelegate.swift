@@ -13,9 +13,9 @@ import AppKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
 {
-  //  @IBOutlet var window: NSWindow!
+
   
-  @IBOutlet weak var currentApp: NSApplication!
+  @IBOutlet weak var application: NSApplication!
   @IBOutlet weak var detachWindow: NSWindow!
   @IBOutlet var popover : NSPopover!
 
@@ -23,6 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
 
   var firstTimeActiveFlag: Bool
 
+  @IBOutlet weak var headerLabel1: NSTextField!
+  
   @IBOutlet weak var item1State: NSButton!
   @IBOutlet weak var item1Text: CustomTextField!
   @IBOutlet weak var item2State: NSButton!
@@ -153,18 +155,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     
     self.stateMessenger = StateMessenger()
     
+    let appearance = NSUserDefaults.standardUserDefaults().stringForKey("AppleInterfaceStyle") ?? "Light"
+    
+    if (appearance == "Dark") {
+      println("fix stuff")
+      //self.headerLabel1.back
+    }
+    
     super.init();
     self.initColors()
+    
+    
   }
   
   @IBAction func StatusItemClicked(sender: NSStatusBarButton) {
     if !(popover.shown) {
       self.popover?.showRelativeToRect(sender.bounds, ofView: self.item.button!, preferredEdge: NSMinYEdge)
-      self.currentApp.activateIgnoringOtherApps(true)
+      self.application.activateIgnoringOtherApps(true)
     }
     else {
       self.popover?.close()
-      self.currentApp.hide(self)
+      self.application.hide(self)
     }
   }
   
@@ -204,6 +215,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     self.updateUI() // The two calls to this are kind of crappy. Refactor...
     self.updateTextStatus()
     self.updateMessage()
+    
+    self.item1Text.setInitialAttributes()
+    self.item2Text.setInitialAttributes()
   }
   
   func updateMessage() {
@@ -227,7 +241,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     // Make the app resign active on the first time.
     // This is to stop the menubar highlighting before it's clicked.
     if (self.firstTimeActiveFlag == true) {
-      self.currentApp.hide(self.currentApp)
+      self.application.hide(self.application)
       self.firstTimeActiveFlag = false
     }
     else {

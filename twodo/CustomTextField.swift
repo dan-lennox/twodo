@@ -13,6 +13,7 @@ import AppKit
 
 class CustomTextField: NSTextField {
   
+  
   override func becomeFirstResponder() -> Bool {
     let success: Bool = super.becomeFirstResponder();
     
@@ -36,6 +37,21 @@ class CustomTextField: NSTextField {
       }
     }
     return success;
+  }
+  
+  func setInitialAttributes() -> () {
+    let attributes = NSMutableAttributedString(string: self.placeholderString!)
+    // Cast string to NSString so we can use length.
+    let stringValue = self.placeholderString as NSString?
+    let range = NSRange(location: 0, length: stringValue!.length)
+    // Add the foreground attribute.
+    attributes.addAttribute(NSForegroundColorAttributeName, value: NSColor.grayColor(), range: range)
+    let font = NSFont(name: "Helvetica", size: 14.0)
+    // Add the font size attribute.
+    attributes.addAttribute(NSFontAttributeName, value: font!, range: range)
+    println(attributes)
+    // Save back to the NSTextField.
+    self.placeholderAttributedString = attributes
   }
   
   func addStrikethrough() {

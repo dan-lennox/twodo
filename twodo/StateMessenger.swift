@@ -42,7 +42,7 @@ class StateMessenger {
     self.currentState = .firstUse
     self.currentColor = self.offColor
     
-    self.messages = [.firstUse: "You suck! But it will get better."]
+    self.messages = [.firstUse: "Now try for two days in a row!"]
     self.messages[.oneItemLeft] = "Sure, but can you do both things. Probably not..."
     self.messages[.firstStreak] = "Huh.. well I guess I was wrong.. this time."
   }

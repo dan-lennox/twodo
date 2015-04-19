@@ -17,8 +17,6 @@ Release blockers.
 
 - Testing for fresh installs (empty data)
 
-- Fix dark mode app styles.
-
 - ensure the storage area in application support folder doesn't have weird name like danlennox.twodo
 
 - General code cleanup.
