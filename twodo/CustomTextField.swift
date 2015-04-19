@@ -49,7 +49,6 @@ class CustomTextField: NSTextField {
     let font = NSFont(name: "Helvetica", size: 14.0)
     // Add the font size attribute.
     attributes.addAttribute(NSFontAttributeName, value: font!, range: range)
-    println(attributes)
     // Save back to the NSTextField.
     self.placeholderAttributedString = attributes
   }

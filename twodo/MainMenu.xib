@@ -700,6 +700,15 @@
                     <rect key="frame" x="0.0" y="0.0" width="347" height="300"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="bg" id="9eA-zn-dKX"/>
                 </imageView>
+                <box hidden="YES" autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="none" translatesAutoresizingMaskIntoConstraints="NO" id="qXe-Cf-ow5">
+                    <rect key="frame" x="0.0" y="252" width="347" height="48"/>
+                    <view key="contentView">
+                        <rect key="frame" x="0.0" y="0.0" width="347" height="48"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                    <color key="fillColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </box>
                 <textField identifier="current" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AKJ-Ij-Iqk">
                     <rect key="frame" x="17" y="35" width="125" height="56"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0" placeholderString="" id="NiM-fn-3lf">

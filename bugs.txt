@@ -5,11 +5,7 @@ Release blockers.
 - Not ticking over to new day when app is still open overnight. (Testing tonight)
    - Can reproduce. Need to make this work when app is open somehow.
 
-- Move popup a few pixels down like memory clean has.
-
 - Not deleting/clearing previous days tasks.
-
-- menubar attach/detach feature like memory clean has
 
 - Write app description / sales pitch.
 
@@ -17,21 +13,19 @@ Release blockers.
 
 - Testing for fresh installs (empty data)
 
-- ensure the storage area in application support folder doesn't have weird name like danlennox.twodo
-
-- General code cleanup.
-
+- Other app icon/s (Dock icon, even though it's not shown in doc, needed for dl and finder viewing.
+   - Plus small app icon in finder as per /Applications
+   
 - Submit to app store.
-
-- Slight discolouring of arrow.
 
 - Finalise messages
   
 
 ----------------------------------------------------------------------------------------
 
+- Move popup a few pixels down like memory clean has.
 Potential future features
-- UI button to reset record?
+- menubar attach/detach feature like memory clean has
 - Bar graphic - 1 segment = 1 day
 - I should almost definitely be using an NSTable with NSTableCells for the layout of the
 two list items....

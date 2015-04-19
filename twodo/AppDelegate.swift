@@ -478,7 +478,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
     // The directory the application uses to store the Core Data store file. This code uses a directory named "danlennox.twodo" in the user's Application Support directory.
     let urls = NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)
     let appSupportURL = urls[urls.count - 1] as NSURL
-    return appSupportURL.URLByAppendingPathComponent("danlennox.twodo")
+    return appSupportURL.URLByAppendingPathComponent("TwoDo")
   }()
 
   lazy var managedObjectModel: NSManagedObjectModel = {
