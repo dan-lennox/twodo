@@ -42,9 +42,15 @@ class StateMessenger {
     self.currentState = .firstUse
     self.currentColor = self.offColor
     
-    self.messages = [.firstUse: "Now try for two days in a row!"]
+    self.messages = [.firstUse: "Add only those to things you NEED to do.."]
     self.messages[.oneItemLeft] = "Sure, but can you do both things. Probably not..."
     self.messages[.firstStreak] = "Huh.. well I guess I was wrong.. this time."
+    
+    // There will be cake..
+    // Well done! The cake is coming.. a few more days perhaps.
+    // Nice one! Now try for two days in a row.
+    // Match your current record!
+    // New record today!
   }
   
 
