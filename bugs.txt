@@ -2,11 +2,6 @@ TODO:
 
 Release blockers.
 
-- Not ticking over to new day when app is still open overnight. (Testing tonight)
-   - Can reproduce. Need to make this work when app is open somehow.
-
-- Not deleting/clearing previous days tasks.
-
 - Write app description / sales pitch.
 
 - TESTING (write actual swift unit tests for fun?)

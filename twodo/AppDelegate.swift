@@ -42,6 +42,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   var onColor: NSColor!
   var offColor: NSColor!
   var undoneColor: NSColor!
+  
+  var newDayChecker: NSTimer!
 
   @IBOutlet weak var heading: NSTextField!
   
@@ -198,6 +200,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
   
   func applicationDidFinishLaunching(aNotification: NSNotification?)
   {
+    self.newDayChecker = NSTimer()
+    
+    self.newDayChecker = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("checkNewDayEvent"), userInfo: nil, repeats: true)
+    
     // Insert code here to initialize your application
     self.loadListItems()
     self.loadStreakRecorder()
@@ -270,6 +276,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
       if self.isNewDay() {
         self.streakRecorder.setValue(self.currentStreak.integerValue, forKey: "current")
         self.streakRecorder.setValue(self.longestStreak.integerValue, forKey: "longest")
+        println("1")
         self.clearLists()
       }
       else {
@@ -284,8 +291,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
       self.currentStreak.integerValue = 0
       self.streakRecorder.setValue(0, forKey: "current")
       // If it's a new day, streak or no streak, we clear the lists.
+      println("2")
       self.clearLists()
     }
+  }
+  
+  func checkNewDayEvent() {
+    self.updateUI()
+    
+    // Store yesterdays current streak.
+    self.yesterdays_current_streak = self.streakRecorder.valueForKey("current") as Int
+    
+    self.currentStreak.integerValue = self.yesterdays_current_streak
+    self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
+    
+    self.updateStreak()
+    self.updateUI() // The two calls to this are kind of crappy. Refactor...
+    self.updateTextStatus()
+    self.updateMessage()
+    self.saveData()
   }
   
   func isNewDay() -> Bool {
