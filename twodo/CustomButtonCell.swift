@@ -11,7 +11,7 @@ import Cocoa
 
 class CustomButtonCell: NSButtonCell {
   
-  required init(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     // Remove the colour change when the button is pressed in (mouse down).
     self.highlightsBy = NSCellStyleMask.NoCellMask

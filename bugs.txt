@@ -2,14 +2,13 @@ TODO:
 
 Release blockers.
 
+- Support for two lines.
+
 - Write app description / sales pitch.
 
 - TESTING (write actual swift unit tests for fun?)
 
 - Testing for fresh installs (empty data)
-
-- Other app icon/s (Dock icon, even though it's not shown in doc, needed for dl and finder viewing.
-   - Plus small app icon in finder as per /Applications
    
 - Submit to app store.
 

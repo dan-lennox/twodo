@@ -42,15 +42,17 @@ class StateMessenger {
     self.currentState = .firstUse
     self.currentColor = self.offColor
     
-    self.messages = [.firstUse: "Add only those to things you NEED to do.."]
+    self.messages = [.firstUse: "Everything else can wait.."]
     self.messages[.oneItemLeft] = "Sure, but can you do both things. Probably not..."
     self.messages[.firstStreak] = "Huh.. well I guess I was wrong.. this time."
     
+    // I'm guessing you'll give up and go to bed now?
     // There will be cake..
     // Well done! The cake is coming.. a few more days perhaps.
     // Nice one! Now try for two days in a row.
     // Match your current record!
     // New record today!
+    // 
   }
   
 
@@ -71,14 +73,22 @@ class StateMessenger {
       self.currentColor = self.onColor
       bothTicked = true
     }
-    
+    // Just one item ticked.
     if (oneTicked == true) {
       self.currentState = .oneItemLeft
     }
-    
+    // Both item ticked and streak is 1
     if (bothTicked == true && streak == 1) {
       self.currentState = .firstStreak
     }
+    // 3 day streak
+    // 7 day streak
+    // 14 day streak
+    // 20 day streak
+    // 30 day streak
+    // 50 day streak
+    // 75 day streak
+    // 100 day streak
   }
 
   func getMessage() -> (message: String, color: NSColor) {

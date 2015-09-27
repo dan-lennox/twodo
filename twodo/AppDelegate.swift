@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   var item: NSStatusItem
 
-  var firstTimeActiveFlag: Bool
+  var firstTimeActiveFlag: Bool!
 
   @IBOutlet weak var headerLabel1: NSTextField!
   
@@ -45,22 +45,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   @IBOutlet weak var heading: NSTextField!
   
-  var stateMessenger: StateMessenger
+  var stateMessenger: StateMessenger!
   
-
+//  var managedObjectContext: NSManagedObjectContext!
+  
   @IBOutlet weak var messageBox: NSBox!
   @IBOutlet weak var message: NSTextField!
   
-  var yesterdays_current_streak: Int
+  var yesterdays_current_streak: Int!
 
   @IBAction func item1Enter(sender: CustomTextField) {
     sender.resignFirstResponder()
     item2Text.becomeFirstResponder()
   }
   
-  
   func saveData() {
-    let managedContext = self.managedObjectContext!
+    let managedContext = self.managedObjectContext
     var error: NSError?
 
     self.listItem1.setValue(self.item1Text.stringValue, forKey: "text")
@@ -77,8 +77,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     self.streakRecorder.setValue(NSDate(), forKey: "last_use");
     
-    if !managedContext.save(&error) {
-      println("Could not save \(error), \(error?.userInfo)")
+    do {
+      try managedContext?.save()
+    } catch let error1 as NSError {
+      error = error1
+      print("Could not save \(error), \(error?.userInfo)")
     }
   }
   
@@ -128,7 +131,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
           self.currentStreak.integerValue--
           // We also then need to decrement the longest streak record if it was broken by today's
           // temporary result.
-          if self.longestStreak.integerValue > self.streakRecorder.valueForKey("longest") as Int {
+          if self.longestStreak.integerValue > self.streakRecorder.valueForKey("longest") as! Int {
             self.longestStreak.integerValue--
           }
         }
@@ -147,7 +150,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     self.item = bar.statusItemWithLength(length);
     
     let iconImage = NSImage(named: "icon")
-    iconImage?.setTemplate(true)
+    iconImage?.template = true
     self.item.image = iconImage
     
     self.item.button?.action = Selector("StatusItemClicked:")
@@ -157,13 +160,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     super.init();
     self.initColors()
-    
-    
   }
   
   @IBAction func StatusItemClicked(sender: NSStatusBarButton) {
     if !(popover.shown) {
-      self.popover?.showRelativeToRect(sender.bounds, ofView: self.item.button!, preferredEdge: NSMinYEdge)
+      self.popover?.showRelativeToRect(sender.bounds, ofView: self.item.button!, preferredEdge: NSRectEdge.MinY)
       self.application.activateIgnoringOtherApps(true)
     }
     else {
@@ -173,9 +174,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }
   
   func initColors() {
-    var rFloat: CGFloat = 0.0/255.0
-    var gFloat: CGFloat = 189.0/255.0
-    var bFloat: CGFloat = 146.0/255.0
+    let rFloat: CGFloat = 0.0/255.0
+    let gFloat: CGFloat = 189.0/255.0
+    let bFloat: CGFloat = 146.0/255.0
     
     self.onColor = NSColor(red: rFloat, green: gFloat, blue: bFloat, alpha: 1.0)
     
@@ -189,7 +190,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     NSApp.setActivationPolicy(.Accessory)
   }
   
-  func applicationDidFinishLaunching(aNotification: NSNotification?) {
+  func applicationDidFinishLaunching(aNotification: NSNotification) {
     self.newDayChecker = NSTimer()
     self.newDayChecker = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("checkNewDayEvent"), userInfo: nil, repeats: true)
     
@@ -206,7 +207,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   func updateMessage() {
     self.stateMessenger.updateState(self.currentStreak.integerValue, record: self.longestStreak.integerValue, status1: self.item1State.state, status2: self.item2State.state)
     
-    var message = self.stateMessenger.getMessage()
+    let message = self.stateMessenger.getMessage()
     self.messageBox.fillColor = message.color
     self.message.stringValue = message.message
   }
@@ -236,7 +237,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     self.popover?.close()
   }
 
-  
   func updateStreak() {
     if (self.bothItemsTicked()) {
       // Lets only save the streak data if it's a new day.
@@ -264,10 +264,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   func checkNewDayEvent() {
     self.updateUI()
     // Store yesterdays current streak.
-    self.yesterdays_current_streak = self.streakRecorder.valueForKey("current") as Int
+    self.yesterdays_current_streak = self.streakRecorder.valueForKey("current") as! Int
     
     self.currentStreak.integerValue = self.yesterdays_current_streak
-    self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
+    self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as! Int
     
     self.updateStreak()
     self.updateUI() // The two calls to this are kind of crappy. Refactor...
@@ -287,9 +287,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // Non debug
     let today = NSDate()
-    let current_date = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: today)
+    let current_date = calendar.components([.Day, .Month], fromDate: today)
 
-    let last_use = calendar.components(.CalendarUnitDay | .CalendarUnitMonth, fromDate: self.streakRecorder.valueForKey("last_use") as NSDate)
+    let last_use = calendar.components([.Day, .Month], fromDate: self.streakRecorder.valueForKey("last_use") as! NSDate)
     
     // If both the day and the month are different, it's a new day.
     if (!(current_date.day == last_use.day && current_date.month == current_date.month)) {
@@ -318,65 +318,71 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }
   
   func loadListItems() {
-    let managedContext = self.managedObjectContext!
+    let managedContext = self.managedObjectContext
     let fetchRequest = NSFetchRequest(entityName:"ListItem")
     
     var error: NSError?
     
-    let fetchedResults =
-    managedContext.executeFetchRequest(fetchRequest,
-        error: &error) as [NSManagedObject]?
-    
-    if let results = fetchedResults {
-      if results.isEmpty {
-        
-        let entity =  NSEntityDescription.entityForName("ListItem",
+    do {
+      let fetchedResults = try managedContext?.executeFetchRequest(fetchRequest)
+      
+      if let results = fetchedResults {
+        if results.isEmpty {
+          
+          let entity =  NSEntityDescription.entityForName("ListItem",
             inManagedObjectContext:
-            managedContext)
-        
-        self.listItem1 = NSManagedObject(entity: entity!,
+            managedContext!)
+          
+          self.listItem1 = NSManagedObject(entity: entity!,
             insertIntoManagedObjectContext:managedContext)
-        
-        self.listItem2 = NSManagedObject(entity: entity!,
+          
+          self.listItem2 = NSManagedObject(entity: entity!,
             insertIntoManagedObjectContext:managedContext)
-        
-        self.listItem1.setValue(1, forKey: "index")
-        self.listItem1.setValue("", forKey: "text")
-        self.listItem1.setValue(false, forKey: "state")
-        
-        self.listItem2.setValue(2, forKey: "index")
-        self.listItem2.setValue("", forKey: "text")
-        self.listItem2.setValue(false, forKey: "state")
-        
-        var error: NSError?
-        if !managedContext.save(&error) {
-          println("Could not save \(error), \(error?.userInfo)")
-        }
-      }
-      else {
-        for result in results {
-          var index = result.valueForKey("index") as Int
-          switch index {
-          case 1:
-            self.listItem1 = result
-          case 2:
-            self.listItem2 = result
-          default:
-            println("wrong index")
+          
+          self.listItem1.setValue(1, forKey: "index")
+          self.listItem1.setValue("", forKey: "text")
+          self.listItem1.setValue(false, forKey: "state")
+          
+          self.listItem2.setValue(2, forKey: "index")
+          self.listItem2.setValue("", forKey: "text")
+          self.listItem2.setValue(false, forKey: "state")
+          
+          var error: NSError?
+          do {
+            try managedContext!.save()
+          } catch let error1 as NSError {
+            error = error1
+            print("Could not save \(error), \(error?.userInfo)")
           }
         }
+        else {
+          for result in results {
+            let index = result.valueForKey("index") as! Int
+            switch index {
+            case 1:
+              self.listItem1 = result as! NSManagedObject
+            case 2:
+              self.listItem2 = result as! NSManagedObject
+            default:
+              print("wrong index")
+            }
+          }
+        }
+      } else {
+        print("Could not fetch \(error), \(error!.userInfo)")
       }
-    } else {
-      println("Could not fetch \(error), \(error!.userInfo)")
+    } catch let error1 as NSError {
+      error = error1
+      print("Could not fetch results \(error), \(error?.userInfo)")
     }
   }
   
   func updateUI() {
-    self.item1Text.stringValue = self.listItem1.valueForKey("text") as String
-    self.item1State.state = self.listItem1.valueForKey("state") as Int
+    self.item1Text.stringValue = self.listItem1.valueForKey("text") as! String
+    self.item1State.state = self.listItem1.valueForKey("state") as! Int
     
-    self.item2Text.stringValue = self.listItem2.valueForKey("text") as String
-    self.item2State.state = self.listItem2.valueForKey("state") as Int
+    self.item2Text.stringValue = self.listItem2.valueForKey("text") as! String
+    self.item2State.state = self.listItem2.valueForKey("state") as! Int
   }
   
   func updateTextStatus() {
@@ -414,61 +420,68 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }
     
   func loadStreakRecorder() {
-    let managedContext = self.managedObjectContext!
+    let managedContext = self.managedObjectContext
     
     let entity =  NSEntityDescription.entityForName("StreakRecorder",
         inManagedObjectContext:
-        managedContext)
+        managedContext!)
     
     let fetchRequest = NSFetchRequest(entityName:"StreakRecorder")//returnsObjectsAsFaults:false
     
     var error: NSError?
     
-    let fetchedResults =
-    managedContext.executeFetchRequest(fetchRequest,
-        error: &error) as [NSManagedObject]?
-    
-    if let results = fetchedResults {
-      if results.isEmpty {
-        // Initialise if empty
-        self.streakRecorder = NSManagedObject(entity: entity!,
+    do {
+      let fetchedResults = try managedContext?.executeFetchRequest(fetchRequest)
+      
+      if let results = fetchedResults {
+        if results.isEmpty {
+          // Initialise if empty
+          self.streakRecorder = NSManagedObject(entity: entity!,
             insertIntoManagedObjectContext:managedContext)
-        
-        self.streakRecorder.setValue(0, forKey: "current")
-        self.streakRecorder.setValue(0, forKey: "longest")
-        let current_date = NSDate()
-        self.streakRecorder.setValue(current_date, forKey: "last_use");
-
-        if !managedContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+          
+          self.streakRecorder.setValue(0, forKey: "current")
+          self.streakRecorder.setValue(0, forKey: "longest")
+          let current_date = NSDate()
+          self.streakRecorder.setValue(current_date, forKey: "last_use");
+          
+          do {
+            try managedContext!.save()
+          } catch let error1 as NSError {
+            error = error1
+            print("Could not save \(error), \(error?.userInfo)")
+          }
         }
+        else {
+          // Load if not
+          self.streakRecorder = results[0] as! NSManagedObject
+          // Init UI.
+          self.currentStreak.integerValue = self.streakRecorder.valueForKey("current") as! Int
+          self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as! Int
+        }
+      } else {
+        print("Could not fetch \(error), \(error!.userInfo)")
       }
-      else {
-        // Load if not
-        self.streakRecorder = results[0]
-        // Init UI.
-        self.currentStreak.integerValue = self.streakRecorder.valueForKey("current") as Int
-        self.longestStreak.integerValue = self.streakRecorder.valueForKey("longest") as Int
-      }
-    } else {
-      println("Could not fetch \(error), \(error!.userInfo)")
+      
+    } catch let error1 as NSError {
+      error = error1
+      print("Could not load results \(error), \(error?.userInfo)")
     }
   }
     
-  func applicationWillTerminate(aNotification: NSNotification?) {
+  func applicationWillTerminate(aNotification: NSNotification) {
     self.saveData()
   }
   
   // MARK: - Core Data stack
 
-  lazy var applicationDocumentsDirectory: NSURL = {
+  var applicationDocumentsDirectory: NSURL = {
     // The directory the application uses to store the Core Data store file. This code uses a directory named "danlennox.twodo" in the user's Application Support directory.
     let urls = NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)
-    let appSupportURL = urls[urls.count - 1] as NSURL
+    let appSupportURL = urls[urls.count - 1]
     return appSupportURL.URLByAppendingPathComponent("TwoDo")
   }()
 
-  lazy var managedObjectModel: NSManagedObjectModel = {
+  var managedObjectModel: NSManagedObjectModel = {
     // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
     let modelURL = NSBundle.mainBundle().URLForResource("twodo", withExtension: "momd")!
     return NSManagedObjectModel(contentsOfURL: modelURL)!
@@ -480,9 +493,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var shouldFail = false
     var error: NSError? = nil
     var failureReason = "There was an error creating or loading the application's saved data."
-    
+
     // Make sure the application files directory is there
-    let propertiesOpt = self.applicationDocumentsDirectory.resourceValuesForKeys([NSURLIsDirectoryKey], error: &error)
+    let propertiesOpt: [NSObject: AnyObject]?
+    do {
+      propertiesOpt = try self.applicationDocumentsDirectory.resourceValuesForKeys([NSURLIsDirectoryKey])
+    } catch var error1 as NSError {
+      error = error1
+      propertiesOpt = nil
+    } catch {
+      fatalError()
+    }
     if let properties = propertiesOpt {
       if !properties[NSURLIsDirectoryKey]!.boolValue {
         failureReason = "Expected a folder to store application data, found a file \(self.applicationDocumentsDirectory.path)."
@@ -490,7 +511,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       }
     } else if error!.code == NSFileReadNoSuchFileError {
       error = nil
-      fileManager.createDirectoryAtPath(self.applicationDocumentsDirectory.path!, withIntermediateDirectories: true, attributes: nil, error: &error)
+      do {
+        try fileManager.createDirectoryAtPath(self.applicationDocumentsDirectory.path!, withIntermediateDirectories: true, attributes: nil)
+      } catch var error1 as NSError {
+        error = error1
+      } catch {
+        fatalError()
+      }
     }
     
     // Create the coordinator and store
@@ -498,8 +525,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     if !shouldFail && (error == nil) {
       coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
       let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("twodo.storedata")
-      if coordinator!.addPersistentStoreWithType(NSXMLStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+      do {
+        try coordinator!.addPersistentStoreWithType(NSXMLStoreType, configuration: nil, URL: url, options: nil)
+      } catch var error1 as NSError {
+        error = error1
         coordinator = nil
+      } catch {
+        fatalError()
       }
     }
     
@@ -511,7 +543,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       if error != nil {
         dict[NSUnderlyingErrorKey] = error
       }
-      error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+      //error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dic as [NSObject : AnyObject])
       NSApplication.sharedApplication().presentError(error!)
       return nil
     } else {
@@ -539,8 +571,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSLog("\(NSStringFromClass(self.dynamicType)) unable to commit editing before saving")
       }
       var error: NSError? = nil
-      if moc.hasChanges && !moc.save(&error) {
-        NSApplication.sharedApplication().presentError(error!)
+      if moc.hasChanges {
+        do {
+          try moc.save()
+        } catch let error1 as NSError {
+          error = error1
+          NSApplication.sharedApplication().presentError(error!)
+        }
       }
     }
   }
@@ -567,7 +604,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       }
       
       var error: NSError? = nil
-      if !moc.save(&error) {
+      do {
+        try moc.save()
+      } catch let error1 as NSError {
+        error = error1
         // Customize this code block to include application-specific recovery steps.
         let result = sender.presentError(error!)
         if (result) {
@@ -590,18 +630,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
       }
     }
-    // If we got here, it is time to quit.
+    // If we got here, it is time to quit.}
     return .TerminateNow
   }
 }
-
-
-
-
-
-
-
-
-
-
-

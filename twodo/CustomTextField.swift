@@ -27,7 +27,7 @@ class CustomTextField: NSTextField {
       let editorset: NSTextView? = (self.currentEditor() as? NSTextView);
       if (editorset != nil) {
         // Change the blinking cursor colour
-        let textField: NSTextView = (self.currentEditor() as NSTextView)
+        let textField: NSTextView = (self.currentEditor() as! NSTextView)
         textField.insertionPointColor = NSColor.whiteColor()
         // Ditch the highlight on the text.
         let range_zero: NSRange = NSRange(location: 0, length: 0)
@@ -60,7 +60,7 @@ class CustomTextField: NSTextField {
     let string = self.stringValue as NSString
     let range = NSRange(location: 0, length: string.length)
     // Add the strikethrough attribute.
-    attributes.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyleSingle, range: range)
+    attributes.addAttribute(NSStrikethroughStyleAttributeName, value: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue), range: range)
     // Save back to the NSTextField.
     self.attributedStringValue = attributes
   }
