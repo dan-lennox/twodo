@@ -1,0 +1,55 @@
+
+Add a bit of humour...
+
+// Initial message
+
+
+
+- New record!
+- 
+
+- +5 - do you really want to go back to 0?
+
+// One task complete
+- Almost there! Just one more task to go.
+- One more left! Don't go to bed yet or it's back to 0!
+
+// After first day success
+Nice work! Now imagine if you did this everyday.
+
+// Generic messages  
+Just get these two tasks done at all costs!
+
+ 
+// Milestones
+3 days -
+- 3 days in a row! You're on
+- The first week is the hardest!
+
+1 week -
+2 weeks - 
+20 days -
+30 days -
+50 days -
+100 days -
+
+
+
+System design:
+
+States, defined by streak + ticked items + record
+A check each day for the state... if not in special state
+default to a series of default states.
+// Overengineered? Is this simply a check.
+
+// Messenger class
+
+state
+
+// init(
+
+// getMessage()
+
+
+
+
