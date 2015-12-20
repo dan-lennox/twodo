@@ -11,6 +11,7 @@ import Cocoa
 import CoreData
 import AppKit
 
+
 class StateMessenger {
 
   enum MessengerState {
@@ -19,7 +20,7 @@ class StateMessenger {
     case firstStreak
   }
   var currentState: MessengerState
-  var messages: [MessengerState: String]
+  //var messages: [MessengerState: String]
   
   var currentColor: NSColor
   var onColor: NSColor
@@ -42,9 +43,10 @@ class StateMessenger {
     self.currentState = .firstUse
     self.currentColor = self.offColor
     
-    self.messages = [.firstUse: "Everything else can wait.."]
-    self.messages[.oneItemLeft] = "Sure, but can you do both things. Probably not..."
-    self.messages[.firstStreak] = "Huh.. well I guess I was wrong.. this time."
+    // Max 43 characters.
+    //self.messages = [.firstUse: "Everything else can wait.."]
+    //self.messages[.oneItemLeft] = "Sure, but can you do both things. Probably not..."
+    //self.messages[.firstStreak] = "Huh.. well I guess I was wrong.. this time."
     
     // I'm guessing you'll give up and go to bed now?
     // There will be cake..
@@ -92,6 +94,22 @@ class StateMessenger {
   }
 
   func getMessage() -> (message: String, color: NSColor) {
-    return (self.messages[self.currentState]!, self.currentColor)
+//    switch self.currentState {
+//      case .firstUse:
+////      
+//      default:
+//        return ("TODO: Define messages for this state.", self.currentColor)
+//    }
+    
+    // We want to do stuff above like
+    // self.currentState = Config.states.firstUse
+    
+    // Add randomisation
+//    let variations = Config.messages.startDay.variations;
+//    let randomIndex = Int(arc4random_uniform(UInt32(variations.count)))
+//    print(variations[randomIndex])
+    
+    return (Config.states.firstUse.messages[0], self.currentColor)
+
   }
 }

@@ -4,6 +4,11 @@ Release blockers.
 
 - Support for two lines.
 
+- Intermittent bug: Halfway through writing the second item, the second and first item
+disappear. Reproduce and fix.
+
+- Finalise messages
+
 - Write app description / sales pitch.
 
 - TESTING (write actual swift unit tests for fun?)
@@ -12,7 +17,7 @@ Release blockers.
    
 - Submit to app store.
 
-- Finalise messages
+
   
 
 ----------------------------------------------------------------------------------------

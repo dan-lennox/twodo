@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		37125C6A1ADB446A0017E56E /* StateMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37125C691ADB446A0017E56E /* StateMessenger.swift */; };
+		372B16401BBE729100E933A6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372B163F1BBE729100E933A6 /* Config.swift */; settings = {ASSET_TAGS = (); }; };
 		374EBD261A9DEDA4007B8BB7 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EBD251A9DEDA4007B8BB7 /* CustomTextField.swift */; };
 		3765DDA41A885FA200D532A9 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA31A885FA200D532A9 /* bg.png */; };
 		3765DDA81A88687500D532A9 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA51A88687500D532A9 /* 1.png */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		37125C691ADB446A0017E56E /* StateMessenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMessenger.swift; sourceTree = "<group>"; };
+		372B163F1BBE729100E933A6 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		374EBD251A9DEDA4007B8BB7 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		3765DDA31A885FA200D532A9 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		3765DDA51A88687500D532A9 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				3775FE1D1A6CA7E4001F807E /* twodo.xcdatamodeld */,
 				374EBD251A9DEDA4007B8BB7 /* CustomTextField.swift */,
 				37E62CF91ABBF25900119458 /* CustomButtonCell.swift */,
+				372B163F1BBE729100E933A6 /* Config.swift */,
 			);
 			path = twodo;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				3775FE1F1A6CA7E4001F807E /* twodo.xcdatamodeld in Sources */,
 				37E62CFA1ABBF25900119458 /* CustomButtonCell.swift in Sources */,
 				37125C6A1ADB446A0017E56E /* StateMessenger.swift in Sources */,
+				372B16401BBE729100E933A6 /* Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
