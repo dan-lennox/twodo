@@ -59,6 +59,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     item2Text.becomeFirstResponder()
   }
   
+  @IBAction func item2Enter(sender: CustomTextField) {
+    sender.resignFirstResponder()
+    item1Text.becomeFirstResponder()
+  }
+  
   func saveData() {
     let managedContext = self.managedObjectContext
     var error: NSError?
