@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
+        <development version="6300" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -698,6 +699,7 @@
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mx9-Pw-oET">
                     <rect key="frame" x="0.0" y="0.0" width="347" height="300"/>
+                    <animations/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="bg" id="9eA-zn-dKX"/>
                 </imageView>
                 <box hidden="YES" autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="none" translatesAutoresizingMaskIntoConstraints="NO" id="qXe-Cf-ow5">
@@ -705,12 +707,15 @@
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="347" height="48"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
                     </view>
+                    <animations/>
                     <color key="borderColor" name="textColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </box>
                 <textField identifier="current" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AKJ-Ij-Iqk">
                     <rect key="frame" x="17" y="35" width="125" height="56"/>
+                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0" placeholderString="" id="NiM-fn-3lf">
                         <font key="font" size="48" name="Helvetica"/>
                         <color key="textColor" red="0.16078431369999999" green="0.16078431369999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -719,6 +724,7 @@
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aIe-Jq-HQE">
                     <rect key="frame" x="9" y="90" width="145" height="18"/>
+                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Days in a row" id="xog-3q-KOL">
                         <font key="font" size="14" name="Helvetica"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -727,6 +733,7 @@
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dIl-p4-Jbo">
                     <rect key="frame" x="194" y="76" width="143" height="32"/>
+                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Best record" id="rjG-Gl-S6W">
                         <font key="font" size="14" name="Helvetica-Oblique"/>
                         <color key="textColor" red="1" green="0.55686274509803924" blue="0.53333333333333333" alpha="1" colorSpace="deviceRGB"/>
@@ -735,6 +742,7 @@
                 </textField>
                 <textField identifier="longest" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ajt-Va-cmT">
                     <rect key="frame" x="198" y="35" width="130" height="59"/>
+                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0" placeholderString="" id="ba8-Ol-Fso">
                         <font key="font" size="48" name="Helvetica"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -743,6 +751,7 @@
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SyE-VW-pDv">
                     <rect key="frame" x="55" y="14" width="52" height="23"/>
+                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="DAYS" id="SJ1-4y-KlR">
                         <font key="font" size="18" name="Helvetica"/>
                         <color key="textColor" red="0.16078431369999999" green="0.16078431369999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -751,6 +760,7 @@
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rJ6-mY-U9I">
                     <rect key="frame" x="238" y="14" width="56" height="23"/>
+                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="DAYS" placeholderString="" id="kwD-SF-FB4">
                         <font key="font" size="18" name="Helvetica"/>
                         <color key="textColor" red="0.69411764705882351" green="0.68235294117647061" blue="0.66274509803921566" alpha="1" colorSpace="calibratedRGB"/>
@@ -759,6 +769,7 @@
                 </textField>
                 <button identifier="item1" canDrawConcurrently="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u6N-Gx-rDY">
                     <rect key="frame" x="0.0" y="198" width="54" height="54"/>
+                    <animations/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="1" imagePosition="overlaps" alignment="center" alternateImage="tick" focusRingType="none" inset="2" id="Eb8-eP-lcL" customClass="CustomButtonCell" customModule="twodo" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -775,6 +786,7 @@
                         <subviews>
                             <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcI-et-RVW" customClass="CustomTextField" customModule="twodo" customModuleProvider="target">
                                 <rect key="frame" x="12" y="15" width="268" height="23"/>
+                                <animations/>
                                 <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="Most important task" allowsEditingTextAttributes="YES" id="vPF-UX-kmM">
                                     <font key="font" size="14" name="Helvetica"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -785,7 +797,9 @@
                                 </connections>
                             </textField>
                         </subviews>
+                        <animations/>
                     </view>
+                    <animations/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" red="0.16078431372549018" green="0.16078431372549018" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
@@ -797,19 +811,26 @@
                         <subviews>
                             <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J55-Pq-CoE" customClass="CustomTextField" customModule="twodo" customModuleProvider="target">
                                 <rect key="frame" x="12" y="15" width="268" height="23"/>
+                                <animations/>
                                 <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="Second most important task" allowsEditingTextAttributes="YES" id="FTI-yg-i1D">
                                     <font key="font" size="14" name="Helvetica"/>
                                     <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="0.2497513204" green="0.59529976220000003" blue="0.16108451269999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
+                                <connections>
+                                    <action selector="item2Enter:" target="Voe-Tx-rLC" id="q40-cn-2pG"/>
+                                </connections>
                             </textField>
                         </subviews>
+                        <animations/>
                     </view>
+                    <animations/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" red="0.16470588235294117" green="0.16078431372549018" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sT0-CA-khD">
                     <rect key="frame" x="23" y="261" width="118" height="27"/>
+                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="leftToRight" alignment="center" title="Your two most" id="lup-BW-hzB">
                         <font key="font" size="18" name="Helvetica"/>
                         <color key="textColor" red="0.16078431369999999" green="0.16078431369999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -818,6 +839,7 @@
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e4c-55-17y">
                     <rect key="frame" x="211" y="261" width="118" height="27"/>
+                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="leftToRight" alignment="center" title="tasks today" id="cKz-yg-LMB">
                         <font key="font" size="18" name="Helvetica"/>
                         <color key="textColor" red="0.16078431369999999" green="0.16078431369999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -826,6 +848,7 @@
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F5L-cD-qQi">
                     <rect key="frame" x="134" y="261" width="97" height="27"/>
+                    <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="leftToRight" alignment="center" title="important" id="ctd-aC-XXh">
                         <font key="font" size="18" name="Helvetica"/>
                         <color key="textColor" red="1" green="0.55686274509803924" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
@@ -834,6 +857,7 @@
                 </textField>
                 <button identifier="item2" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hAA-Mf-V5s">
                     <rect key="frame" x="0.0" y="144" width="54" height="54"/>
+                    <animations/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="2" imagePosition="left" alternateImage="tick" inset="2" id="JYJ-LW-4gz" customClass="CustomButtonCell" customModule="twodo" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -850,6 +874,7 @@
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vuj-Dg-pW5">
                                 <rect key="frame" x="0.0" y="4" width="347" height="18"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="center" id="Jvw-5H-bou">
                                     <font key="font" size="14" name="Helvetica"/>
                                     <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
@@ -857,24 +882,28 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <animations/>
                     </view>
+                    <animations/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" red="1" green="0.5568627451" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="529.5" y="440"/>
+            <animations/>
+            <point key="canvasLocation" x="271.5" y="435"/>
         </customView>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="Zho-bK-fgq">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="466" height="386"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
             <view key="contentView" id="As2-Dt-X7r">
                 <rect key="frame" x="0.0" y="0.0" width="466" height="386"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q3C-xj-NTb">
                         <rect key="frame" x="170" y="151" width="197" height="102"/>
+                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Popover dragged" id="Pt1-TR-an0">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -882,6 +911,7 @@
                         </textFieldCell>
                     </textField>
                 </subviews>
+                <animations/>
             </view>
             <point key="canvasLocation" x="594" y="39"/>
         </window>

@@ -11,6 +11,19 @@ disappear. Reproduce and fix.
 
 - Write app description / sales pitch.
 
+Twodobot is a different kind of todo list. Twodobot doesn't care about
+all the things you need to do, just the two most important ones. Get those
+right and your todo streak will increase. You might even receive a kind word.
+But remember, Twodobot also doesn't care for excuses, so slip up once and he'll
+knock you straight back down to zero and he probably won't be all that
+nice about it! Twodobot also doesn't stand for Todo stagnation. Each day your tasks
+are wiped so you'll need consider which two tasks are ACTUALLY important.
+
+Twodobot is a simple, gamified Todolist that tries make getting your top two tasks
+done everyday as strong a habit as brushing your teeth (for those of you who do in-fact
+brush your teeth daily).
+
+
 - TESTING (write actual swift unit tests for fun?)
 
 - Testing for fresh installs (empty data)

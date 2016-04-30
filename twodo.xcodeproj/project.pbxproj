@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		37125C6A1ADB446A0017E56E /* StateMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37125C691ADB446A0017E56E /* StateMessenger.swift */; };
-		372B16401BBE729100E933A6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372B163F1BBE729100E933A6 /* Config.swift */; settings = {ASSET_TAGS = (); }; };
+		372B16401BBE729100E933A6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372B163F1BBE729100E933A6 /* Config.swift */; };
 		374EBD261A9DEDA4007B8BB7 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EBD251A9DEDA4007B8BB7 /* CustomTextField.swift */; };
 		3765DDA41A885FA200D532A9 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA31A885FA200D532A9 /* bg.png */; };
 		3765DDA81A88687500D532A9 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3765DDA51A88687500D532A9 /* 1.png */; };
@@ -363,7 +363,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = twodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -378,7 +378,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = twodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 			};
