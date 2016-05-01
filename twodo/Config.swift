@@ -12,8 +12,10 @@ struct Config {
   struct states {
     struct firstUse {
       static let messages: [String] = [
-        "If you do nothing else today, just get these two tasks done!",
-        "Everything else can wait"
+        "Do these first!",
+        "Everything else can wait",
+        "If it's not on this list, it can wait.",
+        "Complete today's tasks and get your streak up to 1."
       ];
     }
   }

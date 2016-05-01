@@ -105,11 +105,11 @@ class StateMessenger {
     // self.currentState = Config.states.firstUse
     
     // Add randomisation
-//    let variations = Config.messages.startDay.variations;
-//    let randomIndex = Int(arc4random_uniform(UInt32(variations.count)))
+    let variations = Config.states.firstUse.messages;
+    let randomIndex = Int(arc4random_uniform(UInt32(variations.count)))
 //    print(variations[randomIndex])
     
-    return (Config.states.firstUse.messages[0], self.currentColor)
+    return (Config.states.firstUse.messages[randomIndex], self.currentColor)
 
   }
 }
