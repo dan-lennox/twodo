@@ -767,17 +767,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button identifier="item1" canDrawConcurrently="YES" focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u6N-Gx-rDY">
-                    <rect key="frame" x="0.0" y="198" width="54" height="54"/>
-                    <animations/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="1" imagePosition="overlaps" alignment="center" alternateImage="tick" focusRingType="none" inset="2" id="Eb8-eP-lcL" customClass="CustomButtonCell" customModule="twodo" customModuleProvider="target">
-                        <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="textChecked:" target="Voe-Tx-rLC" id="Pu6-6H-SLL"/>
-                    </connections>
-                </button>
                 <box identifier="item1Box" autoresizesSubviews="NO" focusRingType="none" fixedFrame="YES" borderWidth="0.0" title="item1box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="c6M-Pr-Bsb">
                     <rect key="frame" x="54" y="198" width="293" height="54"/>
                     <view key="contentView">
@@ -858,7 +847,7 @@
                 <button identifier="item2" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hAA-Mf-V5s">
                     <rect key="frame" x="0.0" y="144" width="54" height="54"/>
                     <animations/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="2" imagePosition="left" alternateImage="tick" inset="2" id="JYJ-LW-4gz" customClass="CustomButtonCell" customModule="twodo" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="2" imagePosition="overlaps" alternateImage="tick" refusesFirstResponder="YES" inset="2" id="JYJ-LW-4gz" customClass="CustomButtonCell" customModule="twodo" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -888,6 +877,17 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" red="1" green="0.5568627451" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                 </box>
+                <button identifier="item1" canDrawConcurrently="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u6N-Gx-rDY">
+                    <rect key="frame" x="0.0" y="198" width="54" height="54"/>
+                    <animations/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="1" imagePosition="overlaps" alignment="center" alternateImage="tick" refusesFirstResponder="YES" inset="2" id="Eb8-eP-lcL" customClass="CustomButtonCell" customModule="twodo" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="textChecked:" target="Voe-Tx-rLC" id="Pu6-6H-SLL"/>
+                    </connections>
+                </button>
             </subviews>
             <animations/>
             <point key="canvasLocation" x="271.5" y="435"/>
