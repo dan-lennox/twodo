@@ -18,6 +18,7 @@ class StateMessenger {
     case firstUse
     case oneItemLeft
     case firstStreak
+    case lostStreak
   }
   var currentState: MessengerState
   //var messages: [MessengerState: String]
@@ -65,6 +66,10 @@ class StateMessenger {
     var bothTicked = false
     self.currentColor = self.offColor
     
+    if (record > 1) {
+      self.currentState = .lostStreak;
+    }
+    
     // Establish if only 1 item is ticked.
     if (status1 == 1 && status2 == 0 || status1 == 0 && status2 == 1) {
       oneTicked = true
@@ -94,22 +99,29 @@ class StateMessenger {
   }
 
   func getMessage() -> (message: String, color: NSColor) {
-//    switch self.currentState {
-//      case .firstUse:
-////      
-//      default:
-//        return ("TODO: Define messages for this state.", self.currentColor)
-//    }
+    print(self.currentState);
+    var message = "You can do it!"
+    switch self.currentState {
+      case .firstUse:
+        let variations = Config.states.firstUse.messages;
+        let randomIndex = Int(arc4random_uniform(UInt32(variations.count)))
+        message = Config.states.firstUse.messages[randomIndex]
+        break;
+      case .lostStreak:
+        let variations = Config.states.firstUse.messages;
+        let randomIndex = Int(arc4random_uniform(UInt32(variations.count)))
+        message = Config.states.lostStreak.messages[randomIndex]
+        break;
+      default:
+        return ("TODO: Define messages for this state.", self.currentColor)
+    }
     
     // We want to do stuff above like
     // self.currentState = Config.states.firstUse
     
     // Add randomisation
-    let variations = Config.states.firstUse.messages;
-    let randomIndex = Int(arc4random_uniform(UInt32(variations.count)))
-//    print(variations[randomIndex])
     
-    return (Config.states.firstUse.messages[randomIndex], self.currentColor)
-
+    
+    return (message, self.currentColor)
   }
 }

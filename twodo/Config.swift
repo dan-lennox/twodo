@@ -18,5 +18,10 @@ struct Config {
         "Complete today's tasks and get your streak up to 1."
       ];
     }
+    struct lostStreak {
+      static let messages: [String] = [
+        "You lost your streak! But why?",
+      ];
+    }
   }
 }
