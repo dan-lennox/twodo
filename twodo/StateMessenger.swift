@@ -108,7 +108,7 @@ class StateMessenger {
         message = Config.states.firstUse.messages[randomIndex]
         break;
       case .lostStreak:
-        let variations = Config.states.firstUse.messages;
+        let variations = Config.states.lostStreak.messages;
         let randomIndex = Int(arc4random_uniform(UInt32(variations.count)))
         message = Config.states.lostStreak.messages[randomIndex]
         break;
